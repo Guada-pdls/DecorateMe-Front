@@ -19,7 +19,7 @@ const ProductDetail = () => {
       .catch((err) => console.log(err))
       .finally(setLoad(false));
     // }, [pid]);
-  }, []);
+  }, [pid]);
 
   const addToCart = async (cid, pid, units) => {
     try {
