@@ -33,7 +33,6 @@ const ProductsContainer = () => {
 
   useEffect(() => {
     // Request with params
-    console.log(search);
     const url =
       search === ""
         ? `http://localhost:8080/api/products?page=${page}`
@@ -54,8 +53,6 @@ const ProductsContainer = () => {
   ) : (
     <>
       <section className="productsSection">
-        {/* Searcher */}
-
         <Box
           sx={{
             display: "flex",
