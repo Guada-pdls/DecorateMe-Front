@@ -4,6 +4,7 @@ import axios from "axios";
 import { Pagination, Box, TextField } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import ProductCard from "./ProductCard";
+import Load from "../Load/Load";
 import "./ProductsContainer.css";
 
 const ProductsContainer = () => {
@@ -49,7 +50,7 @@ const ProductsContainer = () => {
   }, [page, search]);
 
   return load ? (
-    "cargando"
+    <Load />
   ) : (
     <>
       <section className="productsSection">

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-// import { useSearchParams } from 'react-router-dom'
-import "./ProductDetail.css";
 import ItemCount from "../ItemCount/ItemCount";
+import Load from "../Load/Load";
+import "./ProductDetail.css";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState({});
@@ -34,7 +34,7 @@ const ProductDetail = () => {
   return (
     <div>
       {load ? (
-        "cargando"
+        <Load />
       ) : (
         <section className="productDetailSection" id="productDetailSection">
           {product ? (
