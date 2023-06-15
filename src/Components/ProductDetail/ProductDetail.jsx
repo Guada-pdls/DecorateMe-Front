@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 // import { useSearchParams } from 'react-router-dom'
+import axios from 'axios'
+import Load from '../Load/Load'
 import './ProductDetail.css'
 
 const ProductDetail = () => {
@@ -9,23 +11,16 @@ const ProductDetail = () => {
   const { id } = useParams()
 
   useEffect(() => {
-    // Llamada a mongo /products/${id}
-    setProduct({
-      "_id": "64875ad7ee044efaa0777511",
-      "name": "Decorative Wall Shelf",
-      "description": "Floating wall shelf with a modern design",
-      "category": "Furniture",
-      "price": 34.99,
-      "thumbnail": "https://example.com/wall_shelf_image.jpg",
-      "stock": 25,
-      "rating": 0,
-      "__v": 0
-    })
-    setLoad(false)
+    axios.get(`http://localhost:8080/api/products/${id}`)
+      .then((res) => {
+        setProduct(res.data.response)
+      })
+      .catch(err => console.log(err))
+      .finally(setLoad(false));
   }, [id])
 
   return (
-    <div>{load ? "cargando" : <section className="productDetailSection" id="productDetailSection">
+    <div>{load ? <Load/> : <section className="productDetailSection" id="productDetailSection">
       {product ?
         <div>
           <a className="returnBtn" href="/products">
@@ -41,13 +36,13 @@ const ProductDetail = () => {
               />
               <div className="detailCard-info">
                 <div className="productCard-info">
-                  <h3 className="productDetailTitle">{ product.name }</h3>
+                  <h3 className="productDetailTitle">{product.name}</h3>
                   <i className="fa-sharp fa-solid fa-star productDetailRating"><span
-                  >{ product.rating }</span></i>
+                  >{product.rating}</span></i>
                 </div>
-                <p className="productCard-category">{ product.category }</p>
-                <p className="productPrice">{ product.price } €</p>
-                <p className="productCard-description">{ product.description }</p>
+                <p className="productCard-category">{product.category}</p>
+                <p className="productPrice">{product.price} €</p>
+                <p className="productCard-description">{product.description}</p>
                 <div className="productQuantity">
                   <p>Cantidad:</p>
                   <div className="productQuantity-counter">

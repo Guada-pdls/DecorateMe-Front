@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Pagination, Box, TextField } from '@mui/material'
 import { Search } from '@mui/icons-material'
 import ProductCard from './ProductCard'
+import Load from '../Load/Load'
 import './ProductsContainer.css'
 
 const ProductsContainer = () => {
@@ -33,7 +34,6 @@ const ProductsContainer = () => {
 
     useEffect(() => {
         // Request with params
-        console.log(search)
         const url = search === '' ? `http://localhost:8080/api/products?page=${page}` : `http://localhost:8080/api/products?page=${page}&name=${search}`
         axios.get(url)
             .then((res) => {
@@ -47,7 +47,7 @@ const ProductsContainer = () => {
     }, [page, search])
 
     return (
-        load ? 'cargando'
+        load ? <Load/>
             : <>
                 <section className='productsSection'>
                     {/* Searcher */}
