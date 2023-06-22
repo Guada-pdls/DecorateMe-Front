@@ -29,5 +29,18 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
     "vite": "^4.3.9"
-  }
+  },
+  "description": "��#\u0000 \u0000D\u0000e\u0000c\u0000o\u0000r\u0000a\u0000t\u0000e\u0000M\u0000e\u0000-\u0000F\u0000r\u0000o\u0000n\u0000t\u0000\r\u0000 \u0000",
+  "main": "vite.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guada-pdls/DecorateMe-Front.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Guada-pdls/DecorateMe-Front/issues"
+  },
+  "homepage": "https://github.com/Guada-pdls/DecorateMe-Front#readme",
+  "keywords": []
 }
