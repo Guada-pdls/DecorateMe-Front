@@ -10,10 +10,17 @@ const CartWidget = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/cart/648a0049c5392c5c08014dc6`)
+      .get(`http://localhost:8080/api/cart/648a0049c5392c5c08014dc6`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
       .then((res) => {
         setProducts(res.data.response.products.length);
-      });
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (

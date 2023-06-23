@@ -27,9 +27,12 @@ const Login = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8080/api/auth/login", formData)
-      .then((res) => {
-        console.log(res.data);
+      .post("http://localhost:8080/api/auth/login", formData, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
       })
       .then(() => {
         setFormData({
@@ -40,7 +43,7 @@ const Login = () => {
           email: true,
           password: true,
         });
-        // window.location.href = "/";
+        window.location.href = "/";
       })
       .catch((err) => {
         if (err.response.status === 404 || err.response.status === 411) {
@@ -48,7 +51,9 @@ const Login = () => {
             email: false,
             password: false,
           });
-          setMessage("Invalid user or password");
+          setMessage(err.response.data.message);
+        } else if (err.response.status === 403) {
+          setMessage(err.response.data.message);
         }
       });
   };
