@@ -29,7 +29,9 @@ const Login = () => {
     axios
       .post("http://localhost:8080/api/auth/login", formData)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
+      })
+      .then(() => {
         setFormData({
           email: "",
           password: "",
@@ -38,7 +40,7 @@ const Login = () => {
           email: true,
           password: true,
         });
-        window.location.href = "http://localhost:5173/";
+        // window.location.href = "/";
       })
       .catch((err) => {
         if (err.response.status === 404 || err.response.status === 411) {
