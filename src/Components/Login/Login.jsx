@@ -2,13 +2,19 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 // import GoogleIcon from "@mui/icons-material/Google";
 // import "./Login.css";
-import { Typography, Button, TextField, Box, Container, Grid } from "@mui/material";
+import {
+  Typography,
+  Button,
+  TextField,
+  Box,
+  Container,
+  Grid,
+} from "@mui/material";
 import { SessionContext } from "../../Context/SessionContext";
 import GithubWidget from "../GithubWidget";
 
 const Login = () => {
-
-  const { login, setUser, setSession } = useContext(SessionContext)
+  const { login, setUser, setSession } = useContext(SessionContext);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -33,9 +39,9 @@ const Login = () => {
     e.preventDefault();
     login(formData)
       .then((res) => {
-        setSession(true)
-        const { email, role } = res.data
-        setUser({ email, role })
+        setSession(true);
+        const { email, role } = res.data;
+        setUser({ email, role });
         setFormData({
           email: "",
           password: "",
@@ -47,15 +53,14 @@ const Login = () => {
         window.location.href = "/";
       })
       .catch((err) => {
-        console.log(err)
-        if (err.response.status === 404 || err.response.status === 411) {
+        if (err.response.status === 400 || err.response.status === 401) {
           setValidation({
             email: false,
             password: false,
           });
-          setMessage(err.response.data.message);
+          setMessage(err.response.data.response);
         } else if (err.response.status === 403) {
-          setMessage(err.response.data.message);
+          setMessage(err.response.data.response);
         }
       });
   };
@@ -73,7 +78,12 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={(e) => submitHandler(e)} noValidate sx={{ mt: 1 }}>
+        <Box
+          component="form"
+          onSubmit={(e) => submitHandler(e)}
+          noValidate
+          sx={{ mt: 1 }}
+        >
           <TextField
             error={!validation.email}
             margin="normal"
@@ -98,7 +108,9 @@ const Login = () => {
             autoComplete="current-password"
             onChange={changeHandler}
           />
-          <Typography>{message}</Typography>
+          <Typography sx={{ color: "rgb(175, 175, 175)" }}>
+            {message}
+          </Typography>
           <Button
             type="submit"
             fullWidth
@@ -118,15 +130,14 @@ const Login = () => {
             </Link>
           </Grid>
         </Box>
-        <GithubWidget/>
+        <GithubWidget />
       </Box>
     </Container>
-  )
+  );
   // <Box sx={{display: 'flex'}}>
   //   <Box sx={{maxWidth: '50vw'}}>
   //     <Typography variant="h4">Welcome to DecorateMe</Typography>
   //     <Typography>Sign In to Continue</Typography>
-
 
   //     <Button variant="outlined" startIcon={<GoogleIcon color="primary" />}>
   //       Log In with Google
