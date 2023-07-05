@@ -14,6 +14,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import { SessionContext } from '../../Context/SessionContext'
+import GithubWidget from "../GithubWidget";
 
 const theme = createTheme();
 
@@ -24,7 +25,7 @@ const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    context.Register({
+    context.register({
       name: data.get("name"),
       email: data.get("email"),
       age: data.get("age"),
@@ -147,6 +148,7 @@ const Register = () => {
               </Grid>
             </Grid>
           </Box>
+          <GithubWidget/>
         </Box>
       </Container>
     </ThemeProvider>

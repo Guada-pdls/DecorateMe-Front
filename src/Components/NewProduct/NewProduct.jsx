@@ -39,7 +39,7 @@ const NewProduct = () => {
         }).then((res) => {
           if (res.isConfirmed) {
             e.target.reset();
-            window.location.href = "http://127.0.0.1:5173/products";
+            window.location.href = "http://localhost:5173/products";
           }
         });
       }

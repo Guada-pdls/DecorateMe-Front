@@ -39,9 +39,9 @@ const Login = () => {
     e.preventDefault();
     login(formData)
       .then((res) => {
-        setSession(true);
-        const { email, role } = res.data;
-        setUser({ email, role });
+        setSession(true)
+        const { email, role, cid } = res.data.user
+        setUser({ email, role, cid })
         setFormData({
           email: "",
           password: "",
@@ -53,7 +53,7 @@ const Login = () => {
         window.location.href = "/";
       })
       .catch((err) => {
-        if (err.response.status === 400 || err.response.status === 401) {
+        if (err.response.status === 404 || err.response.status === 411 || err.response.status === 401) {
           setValidation({
             email: false,
             password: false,
@@ -129,59 +129,8 @@ const Login = () => {
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>
+          <GithubWidget />
         </Box>
-        <GithubWidget />
-      </Box>
-    </Container>
-  );
-  // <Box sx={{display: 'flex'}}>
-  //   <Box sx={{maxWidth: '50vw'}}>
-  //     <Typography variant="h4">Welcome to DecorateMe</Typography>
-  //     <Typography>Sign In to Continue</Typography>
-
-  //     <Button variant="outlined" startIcon={<GoogleIcon color="primary" />}>
-  //       Log In with Google
-  //     </Button>
-  //     <Divider/>
-  //     <form className="loginForm" onSubmit={submitHandler}>
-  //       {/* <label htmlFor="email">Email</label>
-  //       <input
-  //         placeholder="email@example.com"
-  //         type="email"
-  //         name="email"
-  //         value={formData.email}
-  //         onChange={changeHandler}
-  //         className={validation.email ? "" : "invalid"}
-  //       /> */}
-  //       <TextField label="Email" variant="outlined" type="email" name="email" value={formData.email} onChange={changeHandler} />
-  //       {/* <label htmlFor="password">Password</label>
-  //       <input
-  //         type="password"
-  //         name="password"
-  //         value={formData.password}
-  //         onChange={changeHandler}
-  //         className={validation.password ? "" : "invalid"}
-  //       /> */}
-  //       <TextField label="Password" variant="outlined" name="password" value={formData.password} onChange={changeHandler} />
-  //       <Typography>{message}</Typography>
-  //       <Link>Forgot Password?</Link>
-  //       <Button size="large" variant="contained" sx={{bgcolor: '#161616'}}>Log In</Button>
-  //     </form>
-  //     <Typography>
-  //       Dont have an account?
-  //       <Link to="/register"> Create a account for free</Link>
-  //     </Typography>
-  //   </Box>
-  //   <Box className="imgContainer">
-  //     <Typography variant="h4">Discovering the Best Furniture for Four Home</Typography>
-  //     <img
-  //       className="loginImg"
-  //       src="/img/marco-fotos-arte-abstracto-junto-sillon-terciopelo-rosa.jpg"
-  //       alt="login image"
-  //     />
-  //   </Box>
-  // </Box>
-  //   );
 };
 
 export default Login;

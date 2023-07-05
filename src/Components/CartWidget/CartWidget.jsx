@@ -1,27 +1,19 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useEffect, useContext } from "react";
+import { SessionContext } from "../../Context/SessionContext";
 import { Link } from "react-router-dom";
 import { Badge } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
 // import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const CartWidget = () => {
-  const [quantityProducts, setQuantityProducts] = useState(0);
+
+  const { user, quantityProducts, setQuantityProducts, getCart } = useContext(SessionContext)
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/api/cart/648a0049c5392c5c08014dc6`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        setQuantityProducts(res.data.response.products.length);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    Object.keys(user).length === 0 
+      ? setQuantityProducts(0)
+      : getCart()
+  }, [user]);
 
   return (
     <Link to="/cart">
