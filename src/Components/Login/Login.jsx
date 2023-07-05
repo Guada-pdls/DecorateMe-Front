@@ -2,13 +2,19 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 // import GoogleIcon from "@mui/icons-material/Google";
 // import "./Login.css";
-import { Typography, Button, TextField, Box, Container, Grid } from "@mui/material";
+import {
+  Typography,
+  Button,
+  TextField,
+  Box,
+  Container,
+  Grid,
+} from "@mui/material";
 import { SessionContext } from "../../Context/SessionContext";
 import GithubWidget from "../GithubWidget";
 
 const Login = () => {
-
-  const { login, setUser, setSession } = useContext(SessionContext)
+  const { login, setUser, setSession } = useContext(SessionContext);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -72,7 +78,12 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={(e) => submitHandler(e)} noValidate sx={{ mt: 1 }}>
+        <Box
+          component="form"
+          onSubmit={(e) => submitHandler(e)}
+          noValidate
+          sx={{ mt: 1 }}
+        >
           <TextField
             error={!validation.email}
             margin="normal"
@@ -97,7 +108,9 @@ const Login = () => {
             autoComplete="current-password"
             onChange={changeHandler}
           />
-          <Typography>{message}</Typography>
+          <Typography sx={{ color: "rgb(175, 175, 175)" }}>
+            {message}
+          </Typography>
           <Button
             type="submit"
             fullWidth
@@ -118,9 +131,6 @@ const Login = () => {
           </Grid>
           <GithubWidget />
         </Box>
-      </Box>
-    </Container>
-  )
 };
 
 export default Login;
