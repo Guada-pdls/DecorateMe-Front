@@ -5,16 +5,18 @@ import { Pagination, Box, TextField } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import ProductCard from "./ProductCard";
 import Load from "../Load/Load";
+import Swal from "sweetalert2";
 import "./ProductsContainer.css";
 
 const ProductsContainer = () => {
   const [products, setProducts] = useState([]);
   const [load, setLoad] = useState(true);
+  const [error, setError] = useState({ status: false, msg: '' })
 
   const [search, setSearch] = useState("");
 
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(3);
+  const [totalPages, setTotalPages] = useState();
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -23,11 +25,17 @@ const ProductsContainer = () => {
   useEffect(() => {
     // Request all products
     axios
-      .get("http://localhost:8080/api/products")
-      .then((res) => {
-        setProducts(res.data.response.docs);
+      .get("http://localhost:8080/api/products", {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
       })
-      .catch((err) => console.log(err))
+      .then((res) => {
+        setProducts(res.data.payload.response.docs);
+      })
+      .catch((err) => setError({ status: true, msg: err.message }))
       .finally(setLoad(false));
   }, []);
 
@@ -40,17 +48,27 @@ const ProductsContainer = () => {
     axios
       .get(url)
       .then((res) => {
-        // console.log(res.data)
-        setTotalPages(res.data.response.totalPages);
-        setProducts(res.data.response.docs);
+        setTotalPages(res.data.payload.response.totalPages);
+        setProducts(res.data.payload.response.docs);
       })
-      .catch((err) => console.log(err))
+      .catch((err) => setError({ status: true, msg: err.message }))
       .finally(setLoad(false));
   }, [page, search]);
 
   return load ? (
     <Load />
   ) : (
+    error.status && Swal.fire({
+      title: 'Error',
+      text: 'Something went wrong, try again. If the problem persists, please contact us.',
+      icon: 'error',
+      showCancelButton: true,
+      cancelButtonText: 'Return home',
+      allowOutsideClick: false,
+      confirmButtonText: 'Retry',
+      allowEscapeKey: false,
+      footer: `Error: ${error.msg}`
+    }).then(res => res.isConfirmed ? location.reload() : location.href = '/'),
     <>
       <section className="productsSection">
         <Box

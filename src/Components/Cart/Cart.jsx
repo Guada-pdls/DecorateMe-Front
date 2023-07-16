@@ -1,48 +1,33 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../Context/UserContext";
 import axios from "axios";
 import CartCard from "./CartCard";
+import Load from "../Load/Load";
 import "./Cart.css";
 
 const Cart = () => {
-  // const [cart, setCart] = useState({});
-  const [products, setProducts] = useState([]);
+
+  const { getCart, products, totalProducts, user } = useContext(UserContext)
+
   const [load, setLoad] = useState(true);
-  const [totalProducts, setTotalProducts] = useState(0);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
     // Llamada a mongo para cart
-    axios
-      .get(`http://localhost:8080/api/cart/648a0049c5392c5c08014dc6`)
-      .then(async (res) => {
-        let cartProducts = res.data.response.products;
-        // setCart(res.data.response);
-        let products = [];
-        let totalProducts = 0;
-        for (let product of cartProducts) {
-          products.push({
-            id: product.pid,
-            product: await axios
-              .get(`http://localhost:8080/api/products/${product.pid}`)
-              .then((res) => res.data.response),
-            units: product.units,
-          });
-          totalProducts += product.units;
-        }
-        setProducts(products);
-        setTotalProducts(totalProducts);
-      })
+    getCart()
       .catch((err) => console.log(err))
       .finally(setLoad(false));
 
+      console.log(user)
+
     axios
-      .get(`http://localhost:8080/api/cart/bills/648a0049c5392c5c08014dc6`)
+      .get(`http://localhost:8080/api/cart/bills/${user.cid}`)
       .then((res) => {
-        let total = res.data.response[0].total;
+        let total = res.data.response[0] ? res.data.response[0].total : 0 ;
         setTotal(total.toFixed(2));
       })
       .catch((err) => console.log(err));
-  }, [products]);
+  }, [products, user]);
 
   return (
     <section className="cartSection" id="cartSection">
@@ -64,7 +49,7 @@ const Cart = () => {
         </>
         <div className="cartList">
           {load
-            ? "cargando"
+            ? <Load/>
             : products.map((product) => (
                 <CartCard key={product.id} product={product} />
               ))}
