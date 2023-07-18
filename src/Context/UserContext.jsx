@@ -24,41 +24,39 @@ const UserProvider = ({ children }) => {
         withCredentials: true,
       })
       .then(async (res) => {
-        setUser(res.data)
-        if (res.data.email) {
-          let cartProducts = res.data.response.products;
-          let products = [];
-          let totalProducts = 0;
-          for (let product of cartProducts) {
-            products.push({
-              id: product.pid,
-              product: await axios
-                .get(`http://localhost:8080/api/products/${product.pid}`)
-                .then((res) => res.data.response),
-              units: product.units,
-            });
-            totalProducts += product.units;
-          }
-          setProducts(products);
-          setTotalProducts(totalProducts);
-        }
+        setUser(res.data.response.user)
+        // let cartProducts = res.data.response.products;
+        // let products = [];
+        // let totalProducts = 0;
+        // for (let product of cartProducts) {
+        //   products.push({
+        //     id: product.pid,
+        //     product: await axios
+        //       .get(`http://localhost:8080/api/products/${product.pid}`)
+        //       .then((res) => res.data.response),
+        //     units: product.units,
+        //   });
+        //   totalProducts += product.units;
+        // }
+        // setProducts(products);
+        // setTotalProducts(totalProducts);
       })
-      .catch((err) => console.log(err));
+      .catch(() => setUser({}));
   }, [])
 
   const getCart = async () => {
-    axios
-      .get(`http://localhost:8080/api/cart/${user.cid}`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        setQuantityProducts(res.data.response.products.length);
-      })
-      .catch((err) => console.log(err));
+    // axios
+    //   .get(`http://localhost:8080/api/cart/${user.cid}`, {
+    //     headers: {
+    //       Accept: "application/json",
+    //       "Content-Type": "application/json",
+    //     },
+    //     withCredentials: true,
+    //   })
+    //   .then((res) => {
+    //     setQuantityProducts(res.data.response.products.length);
+    //   })
+    //   .catch((err) => console.log(err));
   }
 
   const register = async formData => {
@@ -79,9 +77,8 @@ const UserProvider = ({ children }) => {
 
   const logout = async () => {
     return await axios
-      .post(
+      .get(
         "http://localhost:8080/api/session/logout",
-        {},
         {
           headers: {
             Accept: "application/json",

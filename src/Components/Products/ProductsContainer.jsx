@@ -33,9 +33,9 @@ const ProductsContainer = () => {
         withCredentials: true
       })
       .then((res) => {
-        setProducts(res.data.payload.response.docs);
+        setProducts(res.data.response.products.docs);
       })
-      .catch((err) => setError({ status: true, msg: err.message }))
+      .catch((err) => {setError({ status: true, msg: err.message }), console.log(err)})
       .finally(setLoad(false));
   }, []);
 
@@ -48,8 +48,8 @@ const ProductsContainer = () => {
     axios
       .get(url)
       .then((res) => {
-        setTotalPages(res.data.payload.response.totalPages);
-        setProducts(res.data.payload.response.docs);
+        setTotalPages(res.data.response.products.totalPages);
+        setProducts(res.data.response.products.docs);
       })
       .catch((err) => setError({ status: true, msg: err.message }))
       .finally(setLoad(false));

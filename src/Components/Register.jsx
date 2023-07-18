@@ -13,8 +13,8 @@ import { LockOutlined } from "@mui/icons-material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Swal from "sweetalert2";
 import { useContext } from "react";
-import { UserContext } from '../../Context/UserContext'
-import GithubWidget from "../GithubWidget";
+import { UserContext } from '../Context/UserContext'
+import GithubWidget from "./GithubWidget";
 
 const theme = createTheme();
 
@@ -37,28 +37,26 @@ const Register = () => {
             title: "Success",
             text: "User registred",
             icon: "success",
-          });
+            confirmButtonText: 'Sign in'
+          }).then(res => res.isConfirmed && (window.location.href = '/login'))
         }
-        window.location.href = "/";
+        // window.location.href = "/";
       })
       .catch((err) => {
+        console.log(err)
         if (err.response.status === 409) {
           Swal.fire({
             title: "Error",
             text: "User already authenticated",
             icon: "error",
-          });
-        } else if (err.response.status === 400) {
-          Swal.fire({
-            title: "Error",
-            text: err.response.data.response,
-            icon: "error",
-          });
+            confirmButtonText: 'Sign in'
+          }).then(res => res.isConfirmed && (window.location.href = '/login'));
         } else if (err.response.status !== 201) {
           Swal.fire({
             title: "Error",
             text: "Something went wrong, please try again",
             icon: "error",
+            footer: `Error: ${err.response.data.response}`
           });
         }
       });

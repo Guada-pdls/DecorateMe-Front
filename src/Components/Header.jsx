@@ -10,7 +10,7 @@ import LogoutWidget from "./LogoutWidget/LogoutWidget";
 
 const Header = () => {
 
-  const context = useContext(UserContext)
+  const { user } = useContext(UserContext)
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -114,7 +114,7 @@ const Header = () => {
               <CartWidget />
             </IconButton>
             <IconButton sx={{ p: 0, paddingLeft: '.8rem' }}>
-              {Object.keys(context.user).length !== 0 ? <LogoutWidget /> : <UserWidget />}
+              {Object.keys(user).length === 0 ? <UserWidget /> : <LogoutWidget />}
             </IconButton>
 
           </Box>

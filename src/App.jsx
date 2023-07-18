@@ -6,7 +6,7 @@ import ProductsContainer from "./Components/Products/ProductsContainer";
 import ProductDetail from "./Components/ProductDetail/ProductDetail";
 import Cart from "./Components/Cart/Cart";
 import NewProduct from "./Components/NewProduct/NewProduct";
-import Register from "./Components/Register/Register";
+import Register from "./Components/Register";
 import Login from "./Components/Login";
 // import Chat from './Components/Chat/Chat'
 

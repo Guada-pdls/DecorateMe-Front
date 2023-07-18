@@ -40,7 +40,7 @@ const Login = () => {
     e.preventDefault();
     login(formData)
       .then(async (res) => {
-        const { email, role, cid } = res.data.payload.user
+        const { email, role, cid } = res.data.response.user
         await setUser({ email, role, cid })
         setFormData({
           email: "",
@@ -53,6 +53,7 @@ const Login = () => {
         window.location.href = "/";
       })
       .catch((err) => {
+        console.log(err)
         if (err.response.status === 400) {
           setMessage(err.response.data.error)
         } else if (err.response.status === 401) {
