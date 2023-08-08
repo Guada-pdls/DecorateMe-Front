@@ -26,7 +26,8 @@ const Register = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     context.register({
-      name: data.get("name"),
+      first_name: data.get("first_name"),
+      last_name: data.get("last_name"),
       email: data.get("email"),
       age: data.get("age"),
       password: data.get("password"),
@@ -90,11 +91,11 @@ const Register = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="name"
+                  name="first_name"
                   required
                   fullWidth
-                  id="name"
-                  label="Name"
+                  id="first_name"
+                  label="First Name"
                   autoFocus
                 />
               </Grid>
@@ -102,10 +103,20 @@ const Register = () => {
                 <TextField
                   required
                   fullWidth
+                  id="last_name"
+                  label="Last Name"
+                  name="last_name"
+                  autoComplete="family-name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
                   id="age"
                   label="Age"
                   name="age"
-                  autoComplete="family-name"
+                  autoComplete="age"
                 />
               </Grid>
               <Grid item xs={12}>
