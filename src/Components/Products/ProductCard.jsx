@@ -14,19 +14,18 @@ const ProductCard = ({ product }) => {
             objectFit: 'cover',
             borderRadius: '20px'
           }}
-          className="productCard-img"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJiT-UHSm6w0Jperb8SitpfoAKeMUE3uynPg5YO-2Drw&s"
           alt={product.name}
         />
-        <Typography variant="h5" sx={{ color: 'black' }} className="productTitle">{product.name}</Typography>
-        <Typography sx={{ color: 'gray' }} className="productCard-category">{product.category}</Typography>
+        <Typography variant="h5" sx={{ color: 'black' }}>{product.name}</Typography>
+        <Typography sx={{ color: 'gray' }}>{product.category}</Typography>
         <Typography sx={{
           marginTop: '10px',
           fontWeight: 'bold',
           color: 'black',
           letterSpacing: '1px',
           fontSize: '18px'
-        }} className="productPrice">{product.price} €</Typography>
+        }}>{product.price} €</Typography>
       </Box>
     </Link>
   );

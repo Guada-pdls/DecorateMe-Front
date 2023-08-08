@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { IconButton, Typography, Box, Button } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
 
-const ItemCount = ({ product, addToCart, cart, able }) => {
+const ItemCount = ({ product, addToCart, user, able }) => {
   const [units, setUnits] = useState(1);
   const [addBtn, setAddBtn] = useState("Add to Cart");
 
@@ -22,12 +22,11 @@ const ItemCount = ({ product, addToCart, cart, able }) => {
   };
 
   useEffect(() => {
-    console.log(cart)
     console.log(able)
   })
 
   const handleClick = () => {
-    addToCart("648a0049c5392c5c08014dc6", product._id, units);
+    addToCart(user.cid, product._id, units);
     setUnits(1);
     setAddBtn("Added to Cart");
   };

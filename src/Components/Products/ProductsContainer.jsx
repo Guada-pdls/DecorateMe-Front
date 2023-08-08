@@ -69,7 +69,7 @@ const ProductsContainer = () => {
       footer: `Error: ${error.msg}`
     }).then(res => res.isConfirmed ? location.reload() : location.href = '/'),
     <>
-      <Box component='section' sx={{ paddingTop: '20px'}}>
+      <Box component='section' sx={{ paddingTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Box
           sx={{
             display: "flex",
@@ -98,6 +98,10 @@ const ProductsContainer = () => {
           count={totalPages}
           page={page}
           onChange={(e, value) => handleChange(e, value)}
+          sx={{
+            margin: '2rem',
+            paddingTop: '1rem'
+          }}
         />
       </Box>
     </>
