@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Pagination, Box, TextField } from "@mui/material";
+import { Pagination, Box, TextField, Typography } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import ProductCard from "./ProductCard";
 import Load from "../Load/Load";
 import Swal from "sweetalert2";
-import "./ProductsContainer.css";
 
 const ProductsContainer = () => {
   const [products, setProducts] = useState([]);
@@ -70,7 +69,7 @@ const ProductsContainer = () => {
       footer: `Error: ${error.msg}`
     }).then(res => res.isConfirmed ? location.reload() : location.href = '/'),
     <>
-      <section className="productsSection">
+      <Box component='section' sx={{ paddingTop: '20px'}}>
         <Box
           sx={{
             display: "flex",
@@ -89,18 +88,18 @@ const ProductsContainer = () => {
           />
         </Box>
 
-        <h2 className="sectionTitle">Products</h2>
-        <div className="productsContainer">
+        <Typography sx={{ textAlign: 'center', marginBottom: '10px' }} variant="h5">Products</Typography>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '40px', justifyContent: 'center' }}>
           {products.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
-        </div>
+        </Box>
         <Pagination
           count={totalPages}
           page={page}
           onChange={(e, value) => handleChange(e, value)}
         />
-      </section>
+      </Box>
     </>
   );
 };

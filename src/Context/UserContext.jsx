@@ -41,7 +41,10 @@ const UserProvider = ({ children }) => {
         // setProducts(products);
         // setTotalProducts(totalProducts);
       })
-      .catch(() => setUser({}));
+      .catch(error => {
+        console.log(error)
+        setUser({})
+      });
   }, [])
 
   const getCart = async () => {
