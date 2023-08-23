@@ -6,6 +6,7 @@ import Load from "../Load/Load";
 import "./Cart.css";
 import ReturnButton from "../ReturnButton";
 import { Box, Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
 
@@ -13,6 +14,8 @@ const Cart = () => {
 
   const [load, setLoad] = useState(true);
   const [total, setTotal] = useState(0);
+
+  const navigation = useNavigate();
 
   useEffect(() => {
     // Llamada a mongo para cart
@@ -84,7 +87,7 @@ const Cart = () => {
           </div>
         </div>
       </section>
-      : window.location.href = '/login'
+      : navigation('/login')
   );
 };
 

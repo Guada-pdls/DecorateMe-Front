@@ -11,7 +11,7 @@ import {
   Grid,
 } from "@mui/material";
 import { UserContext } from "../Context/UserContext";
-import GithubWidget from "./GithubWidget";
+import GoogleWidget from "./GoogleWidget";
 import Swal from "sweetalert2";
 
 const Login = () => {
@@ -138,7 +138,7 @@ const Login = () => {
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>
-          <GithubWidget />
+          <GoogleWidget />
         </Box>
       </Box>
     </Container>

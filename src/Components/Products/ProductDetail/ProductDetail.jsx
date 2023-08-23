@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../../../Context/UserContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ItemCount from "./ItemCount";
 import Load from "../../Load/Load";
 import { Box, Typography, useMediaQuery, Rating } from "@mui/material";
@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 const ProductDetail = () => {
 
   const mobile = useMediaQuery('(max-width: 576px)')
+  const navigation = useNavigate()
 
   const { cart, user } = useContext(UserContext)
 
@@ -29,9 +30,11 @@ const ProductDetail = () => {
   const addToCart = async (cid, pid, units) => {
     try {
       await axios.put(
-        `http://localhost:8080/api/cart/${cid}/product/${pid}/${units}`
+        `http://localhost:8080/api/session/current`
+        // `http://localhost:8080/api/cart/${cid}/product/${pid}/${units}`
       );
     } catch (error) {
+      console.log(error)
       Swal.fire({
         title: 'Error',
         text: error.response.data.error,
@@ -79,8 +82,7 @@ const ProductDetail = () => {
             ) : (
               <Typography variant="h2">Not found</Typography>
               )
-            : window.location.href = '/login'
-          }
+            : navigation('/login')}
         </Box>
       )}
     </>

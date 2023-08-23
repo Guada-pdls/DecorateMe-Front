@@ -14,7 +14,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import { UserContext } from '../Context/UserContext'
-import GithubWidget from "./GithubWidget";
+import GoogleWidget from "./GoogleWidget";
 
 const theme = createTheme();
 
@@ -157,7 +157,7 @@ const Register = () => {
               </Grid>
             </Grid>
           </Box>
-          <GithubWidget/>
+          <GoogleWidget/>
         </Box>
       </Container>
     </ThemeProvider>
