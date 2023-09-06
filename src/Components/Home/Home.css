@@ -1,9 +1,9 @@
 .homeIntro {
-    height: 80vh;
+    height: 85vh;
     background-image: url("/img/sofa-gris-salon-blanco-espacio-copiar.jpg");
     background-size: cover;
     background-position: center;
-    background-position-y: -300px;
+    background-position-y: -190px;
     background-repeat: no-repeat;
     background-color: #bdbdbd;
     /* If the img doesn't work */
@@ -15,6 +15,35 @@
     font-size: 2rem;
     width: 50%;
     margin-bottom: 4rem;
+}
+
+@media (max-width: 992px) {
+    .homeIntro{
+        background-position-y: -30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .homeIntro {
+        background-position-y: -20px;
+        padding-left: 4rem;
+        padding-top: 3rem;
+    }
+    .homeIntro__text {
+        width: 80%;
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .homeIntro {
+        background-position-y: 0px;
+        padding: 2rem 2.6rem;
+    }
+    .homeIntro__text {
+        width: 100%;
+        font-size: 1.3rem;
+    }
 }
 
 .featuredCategoriesSection {
@@ -105,107 +134,3 @@
     font-size: 20px;
 }
 
-.homeReviewsSection {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background: url(/img/comedor-moderno-3d-sala-estar-decoracion-lujo.jpg);
-    background-size: cover;
-}
-
-.homeReviews {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    margin: auto 0;
-}
-
-.homeReviews__review {
-    width: 350px;
-    height: 300px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    justify-content: space-between;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-.homeReviews__review--img {
-    width: 100px;
-    height: 100px;
-    background-color: black;
-    border-radius: 50%;
-}
-
-.homeReviews__review--stars {
-    display: flex;
-    gap: 20px;
-    color: #ffbf50;
-}
-
-.homeReviews__review--text {
-    text-align: center;
-}
-
-.homeReviews__review--user {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* HOME PAGE GALLERY SECTION */
-
-.homeGallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin: 40px 0;
-}
-
-.item-1 {
-    grid-column: span 1;
-    grid-row: span 1;
-    aspect-ratio: 1/1;
-}
-
-.item-2 {
-    grid-column: span 2;
-    grid-row: span 2;
-    aspect-ratio: 1/1;
-}
-
-.homeGallery__link {
-    position: relative;
-}
-
-.linkBox {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    border: 4px solid white;
-    padding: 15px 35px;
-    font-size: 36px;
-    font-weight: bold;
-    display: none;
-}
-
-.homeGallery__link:hover .linkBox {
-    display: block;
-    z-index: 998;
-}
-
-.homeGallery__link:hover img {
-    filter: brightness(60%);
-}
-
-.homeGallery__img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-}
