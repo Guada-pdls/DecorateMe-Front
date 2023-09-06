@@ -10,7 +10,7 @@ const CartWidget = () => {
   const { user, quantityProducts, setQuantityProducts, getCart } = useContext(UserContext)
 
   useEffect(() => {
-    Object.keys(user).length === 0 
+    !user.cid
       ? setQuantityProducts(0)
       : getCart()
   }, [user]);
