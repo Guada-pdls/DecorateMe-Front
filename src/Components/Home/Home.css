@@ -1,136 +1,152 @@
 .homeIntro {
-    height: 85vh;
-    background-image: url("/img/sofa-gris-salon-blanco-espacio-copiar.jpg");
-    background-size: cover;
-    background-position: center;
-    background-position-y: -190px;
-    background-repeat: no-repeat;
-    background-color: #bdbdbd;
-    /* If the img doesn't work */
-    padding-left: 7rem;
-    padding-top: 4rem;
+	height: 85vh;
+	background-image: url("/img/sofa-gris-salon-blanco-espacio-copiar.jpg");
+	background-size: cover;
+	background-position: center;
+	/* background-position-y: -190px; */
+	background-repeat: no-repeat;
+	background-color: #bdbdbd;
+	padding-left: 7rem;
+	padding-top: 4rem;
 }
 
 .homeIntro__text {
-    font-size: 2rem;
-    width: 50%;
-    margin-bottom: 4rem;
-}
-
-@media (max-width: 992px) {
-    .homeIntro{
-        background-position-y: -30px;
-    }
-}
-
-@media (max-width: 768px) {
-    .homeIntro {
-        background-position-y: -20px;
-        padding-left: 4rem;
-        padding-top: 3rem;
-    }
-    .homeIntro__text {
-        width: 80%;
-        font-size: 1.4rem;
-    }
-}
-
-@media (max-width: 576px) {
-    .homeIntro {
-        background-position-y: 0px;
-        padding: 2rem 2.6rem;
-    }
-    .homeIntro__text {
-        width: 100%;
-        font-size: 1.3rem;
-    }
+	font-size: 2rem;
+	width: 50%;
+	margin-bottom: 4rem;
 }
 
 .featuredCategoriesSection {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background-color: rgb(215, 209, 197);
-    background-color: white;
-    padding: 4rem 7rem;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	background-color: rgb(215, 209, 197);
+	background-color: white;
+	padding: 4rem 7rem;
 }
 
 .featuredCategories {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 20px;
-    grid-auto-flow: dense;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	gap: 20px;
+	grid-template-areas: 
+    "featuredCategories__principal featuredCategories__principal featuredCategories__second featuredCategories__third"
+    "featuredCategories__principal featuredCategories__principal featuredCategories__info featuredCategories__info"; 
 }
 
-.featuredCategoriesSection__btn {
-    border-radius: 25px;
-    padding: 8px 12px;
-    background-color: rgb(22, 22, 22);
-    color: white;
+.featuredCategories__principal {
+	grid-area: featuredCategories__principal;
 }
-
-.featuredCategoriesSection__btn:hover {
-    background-color: rgb(215, 209, 197);
-    color: black;
+.featuredCategories__second {
+	grid-area: featuredCategories__second;
+}
+.featuredCategories__third {
+	grid-area: featuredCategories__third;
+}
+.featuredCategories__info {
+	grid-area: featuredCategories__info;
 }
 
 .featuredCategories__principal,
 .featuredCategories__second,
 .featuredCategories__third {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    aspect-ratio: 1/1;
-}
-
-.featuredCategories__principal {
-    grid-column: 1/3;
-    grid-row: 1/3;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	border-radius: 20px;
+	aspect-ratio: 1/1;
 }
 
 .featuredCategories__principal--img,
 .featuredCategories__second--img,
 .featuredCategories__third--img {
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-}
-
-.featuredCategories__btn {
-    position: absolute;
-    bottom: 5%;
-    right: 5%;
-    font-size: 15px;
-    border-radius: 25px;
-    padding: 8px 12px;
-    background-color: white;
-    min-width: 130px;
+	width: 100%;
+	height: 100%;
+	border-radius: 4px;
 }
 
 .featuredCategories__info {
-    width: 100%;
-    height: 100%;
-    grid-column: 3/5;
-    grid-row: 2/3;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    gap: 50px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+	gap: 50px;
 }
 
 .featuredCategories__info--text {
-    text-align: left;
-    font-size: 28px;
+	text-align: left;
+	font-size: 1.7rem;
 }
 
 .featuredCategories__info--text span {
-    border-bottom: 2px solid black;
-    padding-bottom: 2px;
+	border-bottom: 2px solid black;
+	padding-bottom: 2px;
+	padding-right: 10px;
 }
 
-.featuredCategories__info--btn {
-    font-size: 20px;
+@media (max-width: 992px) {
+	.homeIntro__text {
+		font-size: 1.6rem;
+		margin-bottom: 2rem;
+	}
+
+	.featuredCategoriesSection {
+		padding: 3rem 2rem;
+	}
+
+	.featuredCategories__info--text {
+		font-size: 1.5rem;
+	}
 }
 
+@media (max-width: 768px) {
+	.homeIntro {
+		padding-left: 4rem;
+		padding-top: 3rem;
+	}
+
+	.homeIntro__text {
+		width: 80%;
+		font-size: 1.4rem;
+	}
+
+	.featuredCategories {
+		grid-template-areas: 
+    "featuredCategories__principal featuredCategories__principal featuredCategories__info featuredCategories__info"
+    "featuredCategories__second featuredCategories__second featuredCategories__third featuredCategories__third"; 
+	}
+
+	.featuredCategories__principal {
+		grid-area: featuredCategories__principal;
+	}
+	.featuredCategories__second {
+		grid-area: featuredCategories__second;
+	}
+	.featuredCategories__third {
+		grid-area: featuredCategories__third;
+	}
+	.featuredCategories__info {
+		grid-area: featuredCategories__info;
+	}
+}
+
+@media (max-width: 576px) {
+	.featuredCategories {
+		grid-template-rows: 1fr .3fr 1fr 1fr;
+		grid-template-areas: 
+    "featuredCategories__principal featuredCategories__principal featuredCategories__principal featuredCategories__principal"
+    "featuredCategories__info featuredCategories__info featuredCategories__info featuredCategories__info"
+    "featuredCategories__second featuredCategories__second featuredCategories__second featuredCategories__second"
+    "featuredCategories__third featuredCategories__third featuredCategories__third featuredCategories__third"; 
+	}
+	.homeIntro {
+		padding: 2.6rem 3rem;
+	}
+
+	.homeIntro__text {
+		width: 100%;
+		font-size: 1.3rem;
+	}
+}

@@ -1,5 +1,4 @@
-import { Button, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import CustomButton from '../CustomButton'
 import './Home.css'
 
 const Home = () => {
@@ -8,16 +7,7 @@ const Home = () => {
 			<section className='homeIntro'>
 				<h1 className="homeIntro__text">CREATE YOUR DREAM HOME WITH OUR EXQUISITE SELECTION
 					OF PRODUCTS</h1>
-				<Link to='/products' href="#">
-					<Button size='large' variant='contained' sx={{
-						backgroundColor: 'wheat',
-						color: '#000',
-						'&:hover': {
-							backgroundColor: '#000',
-                            color: '#fff'
-                        }
-					}}>Decorate Now</Button>
-				</Link>
+					<CustomButton uppercase url='/products' text='Decorate Now' />
 			</section>
 
 			{/* <section>
@@ -56,8 +46,7 @@ const Home = () => {
 
 			<section className="featuredCategoriesSection" id="featuredCategoriesSection">
 				<h2>Featured Categories</h2>
-				<a href="/products"><button className="btn featuredCategoriesSection__btn">See All
-					<i className="fa-solid fa-arrow-right"></i></button></a>
+				<CustomButton text='See All' url='/products'/>
 				<div className="featuredCategories">
 					<div className="featuredCategories__principal">
 						<img
@@ -65,7 +54,7 @@ const Home = () => {
 							src="/img/marco-fotos-arte-abstracto-junto-sillon-terciopelo-rosa.jpg"
 							alt=""
 						/>
-						<a href="/products"><button className="btn featuredCategories__btn">New Drops</button></a>
+						<CustomButton featuredCategories text='New Drops' url='/products'/>
 					</div>
 					<div className="featuredCategories__second">
 						<img
@@ -73,8 +62,7 @@ const Home = () => {
 							src="/img/marco-fotos-arte-abstracto-junto-sillon-terciopelo-rosa.jpg"
 							alt=""
 						/>
-						<a href="/products"><button className="btn featuredCategories__btn">Category
-							One</button></a>
+						<CustomButton featuredCategories text='Category One' url='/products'/>
 					</div>
 					<div className="featuredCategories__third">
 						<img
@@ -82,15 +70,13 @@ const Home = () => {
 							src="/img/marco-fotos-arte-abstracto-junto-sillon-terciopelo-rosa.jpg"
 							alt=""
 						/>
-						<a href="/products"><button className="btn featuredCategories__btn">Category
-							One</button></a>
+						<CustomButton featuredCategories text='Category Two' url='/products'/>
 					</div>
 					<div className="featuredCategories__info">
 						<h3 className="featuredCategories__info--text">Each piece will make your home
 							the most
 							<span> comfortable place</span></h3>
-						<a href="/products"><button className="btn featuredCategories__info--btn">SHOP
-							NOW</button></a>
+							<CustomButton uppercase text='Shop Now' url='/products'/>
 					</div>
 				</div>
 			</section>
