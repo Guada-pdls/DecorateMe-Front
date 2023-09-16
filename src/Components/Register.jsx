@@ -7,30 +7,52 @@ import {
   Grid,
   Box,
   Typography,
-  Container,
+  Container
 } from "@mui/material";
-import { LockOutlined } from "@mui/icons-material";
+import { LockOutlined, CloudUpload } from "@mui/icons-material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Swal from "sweetalert2";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from '../Context/UserContext'
 import GoogleWidget from "./GoogleWidget";
+import styled from "@emotion/styled";
 
 const theme = createTheme();
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 
 const Register = () => {
 
   const context = useContext(UserContext)
 
+  const [selectedFile, setSelectedFile] = useState()
+
+  const handleFileChange = e => {
+    const file = e.target.files[0]
+    setSelectedFile(file)
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    console.log(data.get('photo'))
     context.register({
       first_name: data.get("first_name"),
       last_name: data.get("last_name"),
       email: data.get("email"),
       age: data.get("age"),
       password: data.get("password"),
+      photo: data.get("photo")
     })
       .then((res) => {
         if (res.status === 201) {
@@ -44,7 +66,6 @@ const Register = () => {
         // window.location.href = "/";
       })
       .catch((err) => {
-        console.log(err)
         if (err.response.status === 409) {
           Swal.fire({
             title: "Error",
@@ -57,7 +78,7 @@ const Register = () => {
             title: "Error",
             text: "Something went wrong, please try again",
             icon: "error",
-            footer: `Error: ${err.response.data.response}`
+            footer: `Error: ${err.response.data.error}`
           });
         }
       });
@@ -111,7 +132,6 @@ const Register = () => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   id="age"
                   label="Age"
@@ -135,10 +155,24 @@ const Register = () => {
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
                   id="password"
                   autoComplete="new-password"
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <Button component='label' startIcon={<CloudUpload />}
+                  fullWidth
+                  name="photo"
+                  label="Photo"
+                  id="photo"
+                >
+                  Upload file
+                <VisuallyHiddenInput type="file" onChange={handleFileChange} />
+                </Button>
+                {selectedFile && 
+                  <Typography textAlign='center'>
+                    Selected file: {selectedFile.name}
+                  </Typography>}
               </Grid>
             </Grid>
             <Button
