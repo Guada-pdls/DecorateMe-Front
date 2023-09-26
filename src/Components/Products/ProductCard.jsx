@@ -1,12 +1,33 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography, useMediaQuery } from "@mui/material";
 
 const ProductCard = ({ product }) => {
   const mobile = useMediaQuery('(max-width: 576px)')
+  console.log(product)
   return (
     <Link style={{ textDecoration: 'none' }} to={"/products/" + product._id}>
-      <Box component='article' className="productCard" sx={{ maxWidth: mobile ? '280px' : '360px' }}>
+      <Card sx={{ maxWidth: 345 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image={product.thumbnail}
+        title={product.name}
+      />
+      <CardContent>
+        <Typography variant="subtitle">{product.category}</Typography>
+        <Typography gutterBottom variant="h5" component="div">
+          {product.name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {product.description}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Buy</Button>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
+      {/* <Box component='article' className="productCard" sx={{ maxWidth: mobile ? '280px' : '360px' }}>
         <Box component='img'
           sx={{
             width: '100%',
@@ -26,7 +47,7 @@ const ProductCard = ({ product }) => {
           letterSpacing: '1px',
           fontSize: '18px'
         }}>{product.price} €</Typography>
-      </Box>
+      </Box> */}
     </Link>
   );
 };
