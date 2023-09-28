@@ -28,7 +28,10 @@ const UserProvider = ({ children }) => {
       .then((res) => {
         setQuantityProducts(res.data.response.products.length);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (err.response.status === 401) setUser({})
+        console.log(err)
+      });
   }
 
   const register = async formData => {
