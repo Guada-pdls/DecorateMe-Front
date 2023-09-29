@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
 
-  const { user, cart } = useContext(UserContext)
+  const { user, cart, setCart } = useContext(UserContext)
 
   const [load, setLoad] = useState(true);
   const [total, setTotal] = useState(0);
@@ -21,10 +21,16 @@ const Cart = () => {
     // Llamada a mongo para cart
 
     axios
-      .get(`http://localhost:8080/api/cart/${user.cid}`)
+      .get(`http://localhost:8080/api/cart/${user.cid}`, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      })
       .then((res) => {
-        console.log(res)
-        let total = res.data.response[0] ? res.data.response[0].total : 0;
+        setCart(res.data.response.products)
+        let total = res.data.response ? res.data.response.totalCart : 0;
         setTotal(total.toFixed(2));
       })
       .catch((err) => console.log(err))
@@ -62,7 +68,7 @@ const Cart = () => {
                     ? <Load />
                     : cart.length
                       ? cart.map((product) => (
-                        <CartCard key={product.id} product={product} />
+                        <CartCard key={product.pid} product={product} />
                       ))
                       : <Typography>No products</Typography>
                   }

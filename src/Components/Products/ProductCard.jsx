@@ -1,10 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography, useMediaQuery } from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 
 const ProductCard = ({ product }) => {
-  const mobile = useMediaQuery('(max-width: 576px)')
-  console.log(product)
   return (
     <Link style={{ textDecoration: 'none' }} to={"/products/" + product._id}>
       <Card sx={{ maxWidth: 345 }}>
@@ -23,8 +21,7 @@ const ProductCard = ({ product }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Buy</Button>
-        <Button size="small">Learn More</Button>
+        <Button size="small">View More</Button>
       </CardActions>
     </Card>
       {/* <Box component='article' className="productCard" sx={{ maxWidth: mobile ? '280px' : '360px' }}>

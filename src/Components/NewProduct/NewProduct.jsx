@@ -1,31 +1,27 @@
 import Swal from "sweetalert2";
-import "./NewProduct.css";
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../Context/UserContext";
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import UploadFileButton from "../UploadFileButton";
 
 const NewProduct = () => {
 
   const { user } = useContext(UserContext)
+
+  const [file, setFile] = useState()
 
   const submitHandler = async (e) => {
     try {
       e.preventDefault();
 
       const formData = new FormData(e.currentTarget);
+      formData.append('thumbnail', file)
 
-      const res = await axios.post('http://localhost:8080/api/products', {
-        name: formData.get("name"),
-        description: formData.get("description"),
-        category: formData.get("category"),
-        price: formData.get("price"),
-        thumbnail: formData.get('thumbnail'),
-        stock: formData.get('stock')
-      }, {
+      const res = await axios.post('http://localhost:8080/api/products', formData, {
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
         withCredentials: true,
       })
@@ -45,6 +41,7 @@ const NewProduct = () => {
         });
       }
     } catch (err) {
+      console.log(err)
       Swal.fire({
         title: "Error",
         text: `Error ${err.response.data.status}: ${err.response.data.response}`,
@@ -73,30 +70,42 @@ const NewProduct = () => {
             action="http://localhost:8080/api/products"
             method="POST"
           >
-            <TextField required variant="standard" label="Name" />
-            <TextField required variant="standard" label="Description" />
+            <TextField name="name" required variant="standard" label="Name" />
+            <TextField name="description" required variant="standard" label="Description" />
             <FormControl required variant="standard">
               <InputLabel>Category</InputLabel>
               <Select
+                name="category"
                 label="Category"
+                defaultValue={'Accessories'}
               >
-                <MenuItem value={'Lightning'}>Lightning</MenuItem>
-                <MenuItem value={'Wall Deco'}>Wall Deco</MenuItem>
                 <MenuItem value={'Accessories'}>Accessories</MenuItem>
-                <MenuItem value={'Textile'}>Textile</MenuItem>
                 <MenuItem value={'Art'}>Art</MenuItem>
-                <MenuItem value={'Nature'}>Nature</MenuItem>
                 <MenuItem value={'Furniture'}>Furniture</MenuItem>
+                <MenuItem value={'Lightning'}>Lightning</MenuItem>
+                <MenuItem value={'Nature'}>Nature</MenuItem>
+                <MenuItem value={'Textile'}>Textile</MenuItem>
+                <MenuItem value={'Wall Deco'}>Wall Deco</MenuItem>
               </Select>
             </FormControl>
-            <TextField required variant="standard" label="Price" />
-            <TextField variant="standard" label="Stock" />
-            <TextField required variant="standard" label="Image" />
-            <Button variant="contained" type="submit">Create</Button>
-          </Box>
-        </>
+            <TextField name="price" required variant="standard" label="Price" />
+            <TextField name="stock" variant="standard" label="Stock" />
+            <UploadFileButton setFile={setFile} name='thumbnail'/>
+            <Button variant="contained" type="submit" sx={{
+              padding: '.5rem 1rem',
+              backgroundColor: 'wheat',
+              fontWeight: 'bold',
+              color: '#000',
+              '&:hover': {
+                backgroundColor: '#000',
+                color: '#fff'
+              }
+            }}
+              > Create</Button>
+        </Box>
+    </>
         : <Typography variant="subtitle">Not Authorized</Typography>}
-    </Box>
+    </Box >
   );
 };
 

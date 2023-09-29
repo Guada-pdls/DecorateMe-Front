@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Button,
   CssBaseline,
   TextField,
   Link,
@@ -9,52 +8,31 @@ import {
   Typography,
   Container
 } from "@mui/material";
-import { LockOutlined, CloudUpload } from "@mui/icons-material";
+import { LockOutlined } from "@mui/icons-material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Swal from "sweetalert2";
 import { useContext, useState } from "react";
 import { UserContext } from '../Context/UserContext'
 import GoogleWidget from "./GoogleWidget";
-import styled from "@emotion/styled";
+import CustomButton from "./CustomButton";
+import UploadFileButton from "./UploadFileButton";
 
 const theme = createTheme();
-
-const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
-  height: 1,
-  overflow: 'hidden',
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  whiteSpace: 'nowrap',
-  width: 1,
-});
 
 const Register = () => {
 
   const context = useContext(UserContext)
 
-  const [selectedFile, setSelectedFile] = useState()
-
-  const handleFileChange = e => {
-    const file = e.target.files[0]
-    setSelectedFile(file)
-  }
+  const [file, setFile] = useState()
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log(data.get('photo'))
-    context.register({
-      first_name: data.get("first_name"),
-      last_name: data.get("last_name"),
-      email: data.get("email"),
-      age: data.get("age"),
-      password: data.get("password"),
-      photo: data.get("photo")
-    })
+    data.append('photo', file)
+
+    context.register(data)
       .then((res) => {
+        console.log(res)
         if (res.status === 201) {
           Swal.fire({
             title: "Success",
@@ -66,6 +44,7 @@ const Register = () => {
         // window.location.href = "/";
       })
       .catch((err) => {
+        console.log(err)
         if (err.response.status === 409) {
           Swal.fire({
             title: "Error",
@@ -160,29 +139,10 @@ const Register = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button component='label' startIcon={<CloudUpload />}
-                  fullWidth
-                  name="photo"
-                  label="Photo"
-                  id="photo"
-                >
-                  Upload file
-                <VisuallyHiddenInput type="file" onChange={handleFileChange} />
-                </Button>
-                {selectedFile && 
-                  <Typography textAlign='center'>
-                    Selected file: {selectedFile.name}
-                  </Typography>}
+                <UploadFileButton fullWidth name='photo' setFile={setFile} />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
+            <CustomButton type='submit' text='Sign up' fullWidth/>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">

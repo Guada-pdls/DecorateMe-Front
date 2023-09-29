@@ -45,7 +45,13 @@ const ProductsContainer = () => {
         ? `http://localhost:8080/api/products?page=${page}`
         : `http://localhost:8080/api/products?page=${page}&name=${search}`;
     axios
-      .get(url)
+      .get(url, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      })
       .then((res) => {
         setTotalPages(res.data.response.products.totalPages);
         setProducts(res.data.response.products.docs);
