@@ -68,6 +68,15 @@ const UserProvider = ({ children }) => {
       .catch((err) => console.log(err));
   }
 
+  const purchase = async cid => {
+    return await axios.post(`http://localhost:8080/api/cart/${cid}/purchase`, {}, {
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			withCredentials: true
+		})
+  }
 
   const signInGoogle = async () => {
     redirect('localhost:8080/api/session/google')
@@ -127,7 +136,7 @@ const UserProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, cart, setCart, getCart, quantityProducts, setQuantityProducts, register, login, logout, forgotPassword, ableToReset, resetPassword, signInGoogle }}>
+    <UserContext.Provider value={{ user, setUser, cart, setCart, getCart, quantityProducts, setQuantityProducts, purchase, register, login, logout, forgotPassword, ableToReset, resetPassword, signInGoogle }}>
       {children}
     </UserContext.Provider>
   )

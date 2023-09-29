@@ -10,6 +10,7 @@ import Register from "./Components/Register";
 import Login from "./Components/Login";
 import ResetPassword from "./Components/ResetPassword";
 import ForgotPassword from "./Components/ForgotPassword";
+import Checkout from "./Components/Checkout";
 // import Chat from './Components/Chat/Chat'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/products/:pid" element={<ProductDetail />} />
             <Route path="/new-product" element={<NewProduct />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/:cid/purchase" element={<Checkout />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />}></Route>
             <Route path="/reset-password" element={<ResetPassword/>}></Route>

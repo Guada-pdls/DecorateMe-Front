@@ -7,6 +7,7 @@ import "./Cart.css";
 import ReturnButton from "../ReturnButton";
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import CustomButton from "../CustomButton";
 
 const Cart = () => {
 
@@ -30,12 +31,27 @@ const Cart = () => {
       })
       .then((res) => {
         setCart(res.data.response.products)
-        let total = res.data.response ? res.data.response.totalCart : 0;
+        let total = res.data.response.totalCart ?? 0;
         setTotal(total.toFixed(2));
       })
       .catch((err) => console.log(err))
       .finally(() => setLoad(false))
-  }, []);
+  }, [user]);
+
+  const clearCart = async() => {
+    try {
+      await axios.delete(`http://localhost:8080/api/cart/${user.cid}`, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      })
+      setCart([])
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     Object.keys(user).length ?
@@ -51,7 +67,7 @@ const Cart = () => {
                 borderColor: 'black',
                 backgroundColor: '#f2f2f2'
               }
-            }} variant="outlined">Clear</Button></Box>
+            }} variant="outlined" onClick={clearCart}>Clear</Button></Box>
           </Box>
           {load
             ? <Load />
@@ -80,14 +96,7 @@ const Cart = () => {
           <div className="cartContainer__bottom">
             <h2 className="totalProducts">Products: {cart.length}</h2>
             <h2 className="totalPrice">Total: {total} €</h2>
-            <Button variant="contained" sx={{
-              color: 'black',
-              backgroundColor: 'wheat',
-              ":hover": {
-                color: 'white',
-                backgroundColor: 'black'
-              }
-            }}>Pay</Button>
+            <CustomButton text='BUY' url={`/${user.cid}/purchase`} />
           </div>
         </div>
       </section>

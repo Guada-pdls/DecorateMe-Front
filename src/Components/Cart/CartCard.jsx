@@ -2,18 +2,35 @@
 import axios from "axios";
 import ClearIcon from "@mui/icons-material/Clear";
 import "./CartCard.css";
+import { useContext } from "react";
+import { UserContext } from "../../Context/UserContext";
 
 const CartCard = ({ product }) => {
+  const { user, setCart, cart } = useContext(UserContext)
+
   const deleteOneFromCart = async () => {
     try {
       await axios.delete(
-        `http://localhost:8080/api/cart/648a0049c5392c5c08014dc6/product/${product.id}/1`
+        `http://localhost:8080/api/cart/${user.cid}/product/${product.pid}/1`, {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true
+        }
       );
+      const updatedCart = cart.filter(prod => prod.pid !== product.pid)
+      if (product.units === 1) {
+        setCart(updatedCart)
+      } else {
+        product = {...product, units: product.units - 1}
+        setCart([...updatedCart, product])
+      }
     } catch (error) {
       console.log(error);
     }
   };
-
+  
   return (
     <article>
       <div className="cartItem">
@@ -21,7 +38,7 @@ const CartCard = ({ product }) => {
           <img
             className="cartItem__product--img"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJiT-UHSm6w0Jperb8SitpfoAKeMUE3uynPg5YO-2Drw&s"
-            alt="product image"
+            alt={product.name}
           />
           <div className="cartItem__product--info">
             <h2 className="productTitle">{product.name}</h2>
