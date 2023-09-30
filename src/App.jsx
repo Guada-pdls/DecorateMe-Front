@@ -12,6 +12,7 @@ import ResetPassword from "./Components/ResetPassword";
 import ForgotPassword from "./Components/ForgotPassword";
 import Checkout from "./Components/Checkout";
 import Chat from './Components/Chat/Chat'
+import GoogleLogin from "./Components/GoogleLogin";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/reset-password" element={<ResetPassword/>}></Route>
             <Route path="/forgot-password" element={<ForgotPassword/>}></Route>
+            <Route path="/login/google" element={<GoogleLogin/>}></Route>
             <Route path='/chat' element={<Chat/>}/>
           </Routes>
         </BrowserRouter>

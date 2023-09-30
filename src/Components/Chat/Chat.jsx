@@ -2,7 +2,8 @@ import { UserContext } from '../../Context/UserContext'
 // import './Chat.css'
 import { useContext, useEffect, useRef, useState } from 'react'
 import Message from './Message'
-import { Box, Typography } from '@mui/material'
+import { Box, FormControl, IconButton, Input, InputAdornment, InputLabel, Paper, Typography } from '@mui/material'
+import { Send } from '@mui/icons-material'
 
 const Chat = () => {
 	
@@ -23,10 +24,10 @@ const Chat = () => {
 	const chatBox = useRef(null)
 
 	const sendMessage = () => {
-		const msg = chatBox.current.value
+		const msg = chatBox.current.firstChild.value
 		if (msg) {
 			socket.emit('newMessage', { message: msg, from: user.full_name })
-			chatBox.current.value = ''
+			chatBox.current.firstChild.value = ''
 		}
 	}
 
@@ -42,17 +43,42 @@ const Chat = () => {
 	}, [messages, socket])
 
 	return (
-		<Box>
-			<Typography textAlign='center' variant='h5'>Chat</Typography>
-			<Box>
-				{messages.map(msg => <Message key={msg._id} msg={msg}/>)}
-			</Box>
-			<fieldset className="msg-input">
-				<input type="text" placeholder="Message" ref={chatBox} />
-				<button onClick={sendMessage}>
-					<img src="/icons/send.svg" alt="Send" />
-				</button>
-			</fieldset>
+		<Box sx={{
+			display: 'flex',
+			justifyContent: 'center',
+			minHeight: '90vh',
+			margin: '1rem auto'
+		}}>
+			<Paper sx={{
+				width: '300px',
+				padding: '16px 22px',
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'space-between'
+			}}>
+				<Box>
+					<Typography textAlign='center' variant='h5'>Chat</Typography>
+					<Box>
+						{messages.length > 0 && messages.map(msg => <Message key={msg._id} msg={msg}/>)}
+					</Box>
+				</Box>
+				<FormControl variant='standard'>
+					<InputLabel htmlFor='send'>Message</InputLabel>
+					<Input ref={chatBox} endAdornment={
+						<InputAdornment position='end'>
+							<IconButton onClick={sendMessage}>
+								<Send/>
+							</IconButton>
+						</InputAdornment>
+					}></Input>
+				</FormControl>
+				{/* <fieldset className="msg-input">
+					<input type="text" placeholder="Message" ref={chatBox} />
+					<button onClick={sendMessage}>
+						<img src="/icons/send.svg" alt="Send" />
+					</button>
+				</fieldset> */}
+			</Paper>
 		</Box>
 	)
 }

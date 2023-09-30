@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import { redirect } from 'react-router-dom'
 import { io } from 'socket.io-client'
+import Swal from 'sweetalert2'
+import { redirect } from 'react-router-dom'
 
 const UserContext = createContext([])
 
@@ -11,8 +12,6 @@ const UserProvider = ({ children }) => {
   const socket = io("http://localhost:8080")
 
   useEffect(() => {
-
-
     return () => {
       socket.disconnect()
     }
@@ -91,17 +90,19 @@ const UserProvider = ({ children }) => {
   }
 
   const signInGoogle = async () => {
-    redirect('localhost:8080/api/session/google')
-    // return axios.get('http://localhost:8080/api/session/google',
-    //   {},
-    //   {
-    //     headers: {
-    //       Accept: "application/json",
-    //       "Content-Type": "application/json",
-    //     },
-    //     withCredentials: true,
-    //   }).then(res => console.log(res))
-    //   .catch(err => console.log(err))
+    // redirect('localhost:8080/api/session/google')
+    return axios.get('http://localhost:8080/api/session/current',
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then(res => {
+        setUser(res.data.response.user)
+      })
+      .catch(err => Swal.fire('Error', err.response.data.error, 'error'))
   }
 
   const forgotPassword = email => {
