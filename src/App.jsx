@@ -11,7 +11,8 @@ import Login from "./Components/Login";
 import ResetPassword from "./Components/ResetPassword";
 import ForgotPassword from "./Components/ForgotPassword";
 import Checkout from "./Components/Checkout";
-// import Chat from './Components/Chat/Chat'
+import Chat from './Components/Chat/Chat'
+
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/reset-password" element={<ResetPassword/>}></Route>
             <Route path="/forgot-password" element={<ForgotPassword/>}></Route>
-            {/* <Route path='/chat' element={<Chat/>}/> */}
+            <Route path='/chat' element={<Chat/>}/>
           </Routes>
         </BrowserRouter>
       </UserProvider>

@@ -2,10 +2,22 @@
 import { createContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { redirect } from 'react-router-dom'
+import { io } from 'socket.io-client'
 
 const UserContext = createContext([])
 
 const UserProvider = ({ children }) => {
+
+  const socket = io("http://localhost:8080")
+
+  useEffect(() => {
+
+
+    return () => {
+      socket.disconnect()
+    }
+  }, [socket])
+
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) ?? {})
 
@@ -70,12 +82,12 @@ const UserProvider = ({ children }) => {
 
   const purchase = async cid => {
     return await axios.post(`http://localhost:8080/api/cart/${cid}/purchase`, {}, {
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			withCredentials: true
-		})
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
+    })
   }
 
   const signInGoogle = async () => {
@@ -136,7 +148,7 @@ const UserProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, cart, setCart, getCart, quantityProducts, setQuantityProducts, purchase, register, login, logout, forgotPassword, ableToReset, resetPassword, signInGoogle }}>
+    <UserContext.Provider value={{ user, setUser, cart, setCart, getCart, quantityProducts, setQuantityProducts, purchase, register, login, logout, forgotPassword, ableToReset, resetPassword, signInGoogle, socket }}>
       {children}
     </UserContext.Provider>
   )
