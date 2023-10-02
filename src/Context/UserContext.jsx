@@ -3,9 +3,16 @@ import { createContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { io } from 'socket.io-client'
 import Swal from 'sweetalert2'
-import { redirect } from 'react-router-dom'
 
 const UserContext = createContext([])
+
+const reqConfig = {
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
+}
 
 const UserProvider = ({ children }) => {
 
@@ -29,13 +36,7 @@ const UserProvider = ({ children }) => {
 
   const getCart = async () => {
     axios
-      .get(`http://localhost:8080/api/cart/${user.cid}`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
+      .get(`http://localhost:8080/api/cart/${user.cid}`, reqConfig)
       .then((res) => {
         setQuantityProducts(res.data.response.products.length);
       })
@@ -52,26 +53,14 @@ const UserProvider = ({ children }) => {
 
   const login = async formData => {
     return await axios
-      .post("http://localhost:8080/api/session/login", formData, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
+      .post("http://localhost:8080/api/session/login", formData, reqConfig)
   }
 
   const logout = async () => {
     return await axios
       .get(
         "http://localhost:8080/api/session/logout",
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
+        reqConfig
       )
       .then(() => {
         setUser({})
@@ -80,25 +69,13 @@ const UserProvider = ({ children }) => {
   }
 
   const purchase = async cid => {
-    return await axios.post(`http://localhost:8080/api/cart/${cid}/purchase`, {}, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      withCredentials: true
-    })
+    return await axios.post(`http://localhost:8080/api/cart/${cid}/purchase`, {}, reqConfig)
   }
 
   const signInGoogle = async () => {
     // redirect('localhost:8080/api/session/google')
     return axios.get('http://localhost:8080/api/session/current',
-      {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
+      reqConfig)
       .then(res => {
         setUser(res.data.response.user)
       })
@@ -109,26 +86,13 @@ const UserProvider = ({ children }) => {
     return axios
       .post(
         'http://localhost:8080/api/session/forgot-password',
-        { email },
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-          },
-          withCredentials: true
-        },
+        { email }, reqConfig,
       )
   }
 
   const ableToReset = token => {
     return axios.get(`http://localhost:8080/api/session/reset-password/?token=${token}`,
-      {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      }
+      reqConfig
     )
   }
 
@@ -138,13 +102,7 @@ const UserProvider = ({ children }) => {
       {
         password, confirmPassword
       },
-      {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      }
+      reqConfig
     )
   }
 

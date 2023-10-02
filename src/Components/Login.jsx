@@ -40,7 +40,6 @@ const Login = () => {
     e.preventDefault();
     login(formData)
       .then(async (res) => {
-        console.log(res)
         await setUser(res.data.response.user)
         setFormData({
           email: "",
@@ -53,7 +52,6 @@ const Login = () => {
         window.location.href = "/";
       })
       .catch((err) => {
-        console.log(err)
         if (err.response.status === 400) {
           setMessage(err.response.data.error)
         } else if (err.response.status === 401) {

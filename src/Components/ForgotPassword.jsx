@@ -15,19 +15,9 @@ const ForgotPassword = () => {
 		if(e.target[0].value) {
 			try {
 				const res = await forgotPassword(e.target[0].value)
-				console.log(res)
-				Swal.fire({
-					title: 'Success',
-					icon: 'success',
-					text: res.data.response
-					
-				})
+				Swal.fire('Success', res.dara.response, 'success')
 			} catch (error) {
-				Swal.fire({
-					title: 'Error',
-					icon: 'error',
-					text: error.response.data.error
-				})
+				Swal.fire('Error', error.response.data.error, 'error')
 			} finally {
 				setLoad(false)
 			}

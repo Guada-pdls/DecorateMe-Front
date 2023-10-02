@@ -10,40 +10,6 @@ const Home = () => {
 					<CustomButton uppercase url='/products' text='Decorate Now' />
 			</section>
 
-			{/* <section>
-				<Typography variant='h4'>Featured Categories</Typography>
-				<a href="/products"><button>See All</button></a>
-				<div>
-					<div>
-						<img
-							src="/img/marco-fotos-arte-abstracto-junto-sillon-terciopelo-rosa.jpg"
-							alt=""
-						/>
-						<a href="/products"><button>New Drops</button></a>
-					</div>
-					<div>
-						<img
-							src="/img/marco-fotos-arte-abstracto-junto-sillon-terciopelo-rosa.jpg"
-							alt=""
-						/>
-						<a href="/products"><button>Category One</button></a>
-					</div>
-					<div>
-						<img
-							src="/img/marco-fotos-arte-abstracto-junto-sillon-terciopelo-rosa.jpg"
-							alt=""
-						/>
-						<a href="/products"><button>Category Two</button></a>
-					</div>
-					<div>
-						<h3>Each piece will make your home
-							the most
-							<span> comfortable place</span></h3>
-						<a href="/products"><button>SHOP NOW</button></a>
-					</div>
-				</div>
-			</section> */}
-
 			<section className="featuredCategoriesSection" id="featuredCategoriesSection">
 				<h2>Featured Categories</h2>
 				<CustomButton text='See All' url='/products'/>

@@ -32,7 +32,6 @@ const Register = () => {
 
     context.register(data)
       .then((res) => {
-        console.log(res)
         if (res.status === 201) {
           Swal.fire({
             title: "Success",
@@ -41,7 +40,6 @@ const Register = () => {
             confirmButtonText: 'Sign in'
           }).then(res => res.isConfirmed && (window.location.href = '/login'))
         }
-        // window.location.href = "/";
       })
       .catch((err) => {
         console.log(err)
