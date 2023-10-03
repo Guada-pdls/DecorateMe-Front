@@ -1,24 +1,16 @@
 /* eslint-disable react/prop-types */
-import axios from "axios";
 import ClearIcon from "@mui/icons-material/Clear";
 import "./CartCard.css";
 import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
+import Swal from "sweetalert2";
 
 const CartCard = ({ product }) => {
-  const { user, setCart, cart } = useContext(UserContext)
+  const { user, setCart, cart, deleteOneFromCart } = useContext(UserContext)
 
-  const deleteOneFromCart = async () => {
+  const clickHandler = async () => {
     try {
-      await axios.delete(
-        `http://localhost:8080/api/cart/${user.cid}/product/${product.pid}/1`, {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          withCredentials: true
-        }
-      );
+      await deleteOneFromCart(user.cid, product.pid)
       const updatedCart = cart.filter(prod => prod.pid !== product.pid)
       if (product.units === 1) {
         setCart(updatedCart)
@@ -27,7 +19,7 @@ const CartCard = ({ product }) => {
         setCart([...updatedCart, product])
       }
     } catch (error) {
-      console.log(error);
+      Swal.fire('Error', error.response.data.error, 'error')
     }
   };
   
@@ -51,7 +43,7 @@ const CartCard = ({ product }) => {
             {(product.price * product.units).toFixed(2)} €
           </h2>
           <button
-            onClick={() => deleteOneFromCart(product.pid)}
+            onClick={() => clickHandler(product.pid)}
             className="deleteItem"
           >
             <i className="fa-regular fa-xmark"></i>

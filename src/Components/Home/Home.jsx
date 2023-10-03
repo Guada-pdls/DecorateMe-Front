@@ -5,8 +5,7 @@ const Home = () => {
 	return (
 		<>
 			<section className='homeIntro'>
-				<h1 className="homeIntro__text">CREATE YOUR DREAM HOME WITH OUR EXQUISITE SELECTION
-					OF PRODUCTS</h1>
+				<h1 className="homeIntro__text">CREATE YOUR DREAM HOME WITH OUR EXQUISITE SELECTION	OF PRODUCTS</h1>
 					<CustomButton uppercase url='/products' text='Decorate Now' />
 			</section>
 

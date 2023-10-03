@@ -1,5 +1,4 @@
 import Swal from "sweetalert2";
-import axios from "axios";
 import { useContext, useState } from "react";
 import { UserContext } from "../../Context/UserContext";
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
@@ -7,7 +6,7 @@ import UploadFileButton from "../UploadFileButton";
 
 const NewProduct = () => {
 
-  const { user } = useContext(UserContext)
+  const { user, newProduct } = useContext(UserContext)
 
   const [file, setFile] = useState()
 
@@ -18,13 +17,7 @@ const NewProduct = () => {
       const formData = new FormData(e.currentTarget);
       formData.append('thumbnail', file)
 
-      const res = await axios.post('http://localhost:8080/api/products', formData, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      })
+      const res = await newProduct(formData)
 
       if (res.status === 201) {
         Swal.fire({
@@ -41,12 +34,7 @@ const NewProduct = () => {
         });
       }
     } catch (err) {
-      console.log(err)
-      Swal.fire({
-        title: "Error",
-        text: `Error ${err.response.data.status}: ${err.response.data.response}`,
-        icon: "error",
-      });
+      Swal.fire('Error', `Error ${err.response.data.status}: ${err.response.data.response}`, 'error')
     }
   };
 

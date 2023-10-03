@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
-import axios from "axios";
 import CartCard from "./CartCard";
 import Load from "../Load";
 import "./Cart.css";
@@ -8,10 +7,11 @@ import ReturnButton from "../ReturnButton";
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../CustomButton";
+import Swal from "sweetalert2";
 
 const Cart = () => {
 
-  const { user, cart, setCart } = useContext(UserContext)
+  const { user, cart, setCart, getCart, clearCart, setUser } = useContext(UserContext)
 
   const [load, setLoad] = useState(true);
   const [total, setTotal] = useState(0);
@@ -20,38 +20,18 @@ const Cart = () => {
 
   useEffect(() => {
     // Llamada a mongo para cart
-
-    axios
-      .get(`http://localhost:8080/api/cart/${user.cid}`, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        withCredentials: true
-      })
+    getCart(user.cid)
       .then((res) => {
         setCart(res.data.response.products)
         let total = res.data.response.totalCart ?? 0;
         setTotal(total.toFixed(2));
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        if (err.response.status === 401) setUser({})
+        Swal.fire('Error', err.response.data.error, 'error')
+      })
       .finally(() => setLoad(false))
   }, [user]);
-
-  const clearCart = async() => {
-    try {
-      await axios.delete(`http://localhost:8080/api/cart/${user.cid}`, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        withCredentials: true
-      })
-      setCart([])
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   return (
     Object.keys(user).length ?
@@ -67,7 +47,7 @@ const Cart = () => {
                 borderColor: 'black',
                 backgroundColor: '#f2f2f2'
               }
-            }} variant="outlined" onClick={clearCart}>Clear</Button></Box>
+            }} variant="outlined" onClick={() => clearCart(user.cid)}>Clear</Button></Box>
           </Box>
           {load
             ? <Load />

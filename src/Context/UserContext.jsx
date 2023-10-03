@@ -34,16 +34,25 @@ const UserProvider = ({ children }) => {
   const [cart, setCart] = useState([])
   const [quantityProducts, setQuantityProducts] = useState(0);
 
-  const getCart = async () => {
-    axios
-      .get(`http://localhost:8080/api/cart/${user.cid}`, reqConfig)
-      .then((res) => {
-        setQuantityProducts(res.data.response.products.length);
-      })
-      .catch((err) => {
-        if (err.response.status === 401) setUser({})
-        console.log(err)
-      });
+  const getCart = async cid => {
+    return await axios.get(`http://localhost:8080/api/cart/${cid}`, reqConfig)
+  }
+
+  const deleteOneFromCart = async (cid, pid) => {
+    return await axios.delete(`http://localhost:8080/api/cart/${cid}/product/${pid}/1`, reqConfig)
+  }
+
+  const clearCart = async cid =>  {
+    try {
+      await axios.delete(`http://localhost:8080/api/cart/${cid}`, reqConfig)
+      setCart([])
+    } catch (error) {
+      Swal.fire('Error', error.response.data.error)
+    }
+  }
+
+  const newProduct = async productData => {
+    return await axios.post('http://localhost:8080/api/products', productData, reqConfig)
   }
 
   const register = async formData => {
@@ -107,7 +116,7 @@ const UserProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, cart, setCart, getCart, quantityProducts, setQuantityProducts, purchase, register, login, logout, forgotPassword, ableToReset, resetPassword, signInGoogle, socket }}>
+    <UserContext.Provider value={{ user, setUser, cart, setCart, getCart, quantityProducts, setQuantityProducts, purchase, register, login, logout, forgotPassword, ableToReset, resetPassword, signInGoogle, socket, newProduct, deleteOneFromCart, clearCart }}>
       {children}
     </UserContext.Provider>
   )

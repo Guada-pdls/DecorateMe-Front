@@ -5,7 +5,7 @@ import Home from "./Components/Home/Home";
 import ProductsContainer from "./Components/Products/ProductsContainer";
 import ProductDetail from "./Components/Products/ProductDetail/ProductDetail";
 import Cart from "./Components/Cart/Cart";
-import NewProduct from "./Components/NewProduct/NewProduct";
+import NewProduct from "./Components/Products/NewProduct";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import ResetPassword from "./Components/ResetPassword";
