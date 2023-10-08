@@ -54,10 +54,14 @@ const UserProvider = ({ children }) => {
   const newProduct = async productData => {
     return await axios.post('http://localhost:8080/api/products', productData, reqConfig)
   }
+  
+    const getUsers = async () => {
+      return await axios.get("http://localhost:8080/api/users", reqConfig)
+    }
 
   const register = async formData => {
     return await axios
-      .post("http://localhost:8080/api/session/register", formData)
+      .post("http://localhost:8080/api/session/register", formData, reqConfig)
   }
 
   const login = async formData => {
@@ -116,7 +120,7 @@ const UserProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, cart, setCart, getCart, quantityProducts, setQuantityProducts, purchase, register, login, logout, forgotPassword, ableToReset, resetPassword, signInGoogle, socket, newProduct, deleteOneFromCart, clearCart }}>
+    <UserContext.Provider value={{ user, setUser, cart, setCart, getCart, quantityProducts, setQuantityProducts, purchase, register, login, logout, forgotPassword, ableToReset, resetPassword, signInGoogle, socket, newProduct, deleteOneFromCart, clearCart, getUsers }}>
       {children}
     </UserContext.Provider>
   )
