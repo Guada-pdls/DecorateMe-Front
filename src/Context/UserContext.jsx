@@ -55,9 +55,17 @@ const UserProvider = ({ children }) => {
     return await axios.post('http://localhost:8080/api/products', productData, reqConfig)
   }
   
-    const getUsers = async () => {
-      return await axios.get("http://localhost:8080/api/users", reqConfig)
-    }
+  const getUsers = async () => {
+    return await axios.get("http://localhost:8080/api/users", reqConfig)
+  }
+
+  const updateUser = async (uid, data) => {
+    return await axios.put(`http://localhost:8080/api/users/${uid}`, data, reqConfig)
+  }
+
+  const deleteUser = async uid => {
+    return await axios.delete(`http://localhost:8080/api/users/${uid}`, reqConfig)
+  }
 
   const register = async formData => {
     return await axios
@@ -78,7 +86,10 @@ const UserProvider = ({ children }) => {
       .then(() => {
         setUser({})
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err)
+        err.response.status === 401 && setUser({})
+      });
   }
 
   const purchase = async cid => {
@@ -120,7 +131,7 @@ const UserProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, cart, setCart, getCart, quantityProducts, setQuantityProducts, purchase, register, login, logout, forgotPassword, ableToReset, resetPassword, signInGoogle, socket, newProduct, deleteOneFromCart, clearCart, getUsers }}>
+    <UserContext.Provider value={{ user, setUser, cart, setCart, getCart, quantityProducts, setQuantityProducts, purchase, register, login, logout, forgotPassword, ableToReset, resetPassword, signInGoogle, socket, newProduct, deleteOneFromCart, clearCart, getUsers, updateUser, deleteUser }}>
       {children}
     </UserContext.Provider>
   )

@@ -1,29 +1,46 @@
 /* eslint-disable react/prop-types */
 import { Delete } from "@mui/icons-material"
-import { Avatar, Box, IconButton, ListItem, ListItemAvatar, ListItemText } from "@mui/material"
-
-function stringAvatar(name) {
-  return {
-    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-  };
-}
+import { MenuItem, Select, TableCell, TableRow } from "@mui/material"
+import { useContext } from "react"
+import { UserContext } from "../../Context/UserContext"
 
 const UserListItem = ({ user }) => {
-	console.log(user)
+
+	const { updateUser, deleteUser } = useContext(UserContext)
+
+	const changeHandler = e => {
+		updateUser(user._id, { role: e.target.value })
+			.then(res => console.log(res))
+			.catch(error => console.log(error))
+	}
+
+	const clickHandler = () => {
+		deleteUser(user._id)
+		.then(res => console.log(res))
+		.catch(error => console.log(error))
+		// TODO: Success or failure message
+	}
+
 	return (
-		<ListItem
-			secondaryAction={
-				<IconButton edge="end" aria-label="delete">
-					<Delete />
-				</IconButton>}>
-			<ListItemAvatar>
-				<Avatar {...stringAvatar(user.full_name)}>
-					<Box component="img" src={user.photo} alt={user.full_name} ></Box>
-					
-				</Avatar>
-			</ListItemAvatar>
-			<ListItemText primary={user.full_name} />
-		</ListItem>
+		<TableRow
+			sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+		>
+			<TableCell component="th" scope="row">
+				{user.full_name}
+			</TableCell>
+			<TableCell align="right">{user.last_connection}</TableCell>
+			<TableCell align="right">{user.email}</TableCell>
+			<TableCell align="right">
+				<Select onChange={changeHandler} defaultValue={user.role}>
+					<MenuItem value="user">user</MenuItem>
+					<MenuItem value="premium">premium</MenuItem>
+					<MenuItem value="admin">admin</MenuItem>
+				</Select>
+			</TableCell>
+			<TableCell align="right">
+				<Delete onClick={clickHandler} />
+			</TableCell>
+		</TableRow>
 	)
 }
 
