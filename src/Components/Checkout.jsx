@@ -14,13 +14,31 @@ const Checkout = () => {
 		try {
 			e.preventDefault()
 			await purchase(cid)
-			.then(res => {
-				console.log(res)
-				Swal.fire('Successful purchase', 'View ticket ->', 'success')
-			})
+				.then(res => {
+					console.log(res)
+					Swal.fire({
+						title: 'Successful purchase',
+						html: `
+					  <p>Ticket ID: ${res.data.response.ticket._id}</p>
+					  <p>Date: ${res.data.response.ticket.purchase_date}</p>
+					  <p>Purchaser: ${res.data.response.ticket.purchaser}</p>
+					  <p>Purchased Items: 
+						${res.data.response.purchasedItems.map(prod => `<p>- ${prod.name} x${prod.units}: ${prod.price}</p>`).join('')}
+					  </p>
+					  ${res.data.outOfStockItems ? `
+						<p>Out of Stock: 
+						  ${res.data.response.outOfStockItems.map(prod => `<p>- ${prod.name} x${prod.units}: ${prod.price}</p>`).join('')}
+						</p>
+					  ` : ''}
+					  <p>Amount: ${res.data.response.ticket.amount}</p>
+					`,
+						icon: 'success'
+					});
+
+				})
 		} catch (error) {
-			Swal.fire('Error', error.response.data.error, 'error')
 			console.log(error)
+			Swal.fire('Error', error.response.data.error, 'error')
 		}
 	}
 

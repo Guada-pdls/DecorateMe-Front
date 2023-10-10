@@ -14,6 +14,14 @@ const reqConfig = {
   withCredentials: true,
 }
 
+const reqConfigWithFiles = {
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/multipart/form-data"
+  },
+  withCredentials: true
+}
+
 const UserProvider = ({ children }) => {
 
   const socket = io("http://localhost:8080")
@@ -52,7 +60,7 @@ const UserProvider = ({ children }) => {
   }
 
   const newProduct = async productData => {
-    return await axios.post('http://localhost:8080/api/products', productData, reqConfig)
+    return await axios.post('http://localhost:8080/api/products', productData, reqConfigWithFiles)
   }
   
   const getUsers = async () => {
@@ -69,7 +77,7 @@ const UserProvider = ({ children }) => {
 
   const register = async formData => {
     return await axios
-      .post("http://localhost:8080/api/session/register", formData, reqConfig)
+      .post("http://localhost:8080/api/session/register", formData, reqConfigWithFiles)
   }
 
   const login = async formData => {

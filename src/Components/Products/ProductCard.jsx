@@ -7,8 +7,9 @@ const ProductCard = ({ product }) => {
     <Link style={{ textDecoration: 'none' }} to={"/products/" + product._id}>
       <Card sx={{ maxWidth: 350 }}>
       <CardMedia
+        component='img'
         sx={{ height: 140 }}
-        image={product.thumbnail}
+        src={product.thumbnail}
         title={product.name}
       />
       <CardContent>

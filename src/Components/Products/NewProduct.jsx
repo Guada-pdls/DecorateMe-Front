@@ -34,7 +34,7 @@ const NewProduct = () => {
         });
       }
     } catch (err) {
-      Swal.fire('Error', `Error ${err.response.data.status}: ${err.response.data.response}`, 'error')
+      Swal.fire('Error', err.response.data.error, 'error')
     }
   };
 
