@@ -28,7 +28,7 @@ const NewProduct = () => {
         }).then((res) => {
           if (res.isConfirmed) {
             e.target.reset();
-            window.location.href = "http://decorate-me-front.vercel.app/products";
+            window.location.href = "https://decorate-me-front.vercel.app/products";
           }
         });
       }
