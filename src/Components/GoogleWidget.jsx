@@ -4,7 +4,7 @@ import GoogleIcon from '@mui/icons-material/Google'
 const GoogleWidget = () => {
 	const loginHandler = () => {
 		// Google login
-		window.location.href = 'https://decorateme.onrender.com/api/session/google'
+		window.location.href = 'http://localhost:8080/api/session/google'
 	}
 
 	return (

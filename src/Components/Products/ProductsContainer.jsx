@@ -24,7 +24,7 @@ const ProductsContainer = () => {
   useEffect(() => {
     // Request all products
     axios
-      .get("https://decorateme.onrender.com/api/products", {
+      .get("http://localhost:8080/api/products", {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
@@ -42,8 +42,8 @@ const ProductsContainer = () => {
     // Request with params
     const url =
       search === ""
-        ? `https://decorateme.onrender.com/api/products?page=${page}`
-        : `https://decorateme.onrender.com/api/products?page=${page}&name=${search}`;
+        ? `http://localhost:8080/api/products?page=${page}`
+        : `http://localhost:8080/api/products?page=${page}&name=${search}`;
     axios
       .get(url, {
         headers: {

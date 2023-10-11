@@ -21,7 +21,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`https://decorateme.onrender.com/api/products/${pid}`, {
+      .get(`http://localhost:8080/api/products/${pid}`, {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
@@ -35,7 +35,7 @@ const ProductDetail = () => {
 
   const addToCart = async (cid, pid, units) => {
     try {
-      await axios.put(`https://decorateme.onrender.com/api/cart/${cid}/product/${pid}/${units}`, {}, {
+      await axios.put(`http://localhost:8080/api/cart/${cid}/product/${pid}/${units}`, {}, {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
