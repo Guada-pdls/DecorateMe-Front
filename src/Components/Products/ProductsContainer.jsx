@@ -111,9 +111,6 @@ const ProductsContainer = () => {
           }}
         />
       </Box>
-      <CustomButton text='Add new product' url='http://decorate-me-front.vercel.app/new-product'></CustomButton>
-      <CustomButton text='Go to chat' url='http://decorate-me-front.vercel.app/chat'></CustomButton>
-      <CustomButton text='Manage users' url='http://decorate-me-front.vercel.app/users'></CustomButton>
     </>
   );
 };
