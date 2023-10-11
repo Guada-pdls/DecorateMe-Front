@@ -43,8 +43,8 @@ const ProductsContainer = () => {
     // Request with params
     const url =
       search === ""
-        ? `http://decorateme.onrender.com/api/products?page=${page}`
-        : `http://decorateme.onrender.com/api/products?page=${page}&name=${search}`;
+        ? `https://decorateme.onrender.com/api/products?page=${page}`
+        : `https://decorateme.onrender.com/api/products?page=${page}&name=${search}`;
     axios
       .get(url, {
         headers: {

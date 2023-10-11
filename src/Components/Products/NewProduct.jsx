@@ -54,7 +54,7 @@ const NewProduct = () => {
               gap: '1rem'
             }}
             onSubmit={(e) => submitHandler(e)}
-            action="http://decorateme.onrender.com/api/products"
+            action="https://decorateme.onrender.com/api/products"
             method="POST"
           >
             <TextField name="name" required variant="standard" label="Name" />
