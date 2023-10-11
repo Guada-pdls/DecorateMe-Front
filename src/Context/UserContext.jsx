@@ -24,7 +24,7 @@ const reqConfigWithFiles = {
 
 const UserProvider = ({ children }) => {
 
-  const socket = io("http://localhost:8080")
+  const socket = io("https://decorateme.onrender.com")
 
   useEffect(() => {
     return () => {
@@ -43,16 +43,16 @@ const UserProvider = ({ children }) => {
   const [quantityProducts, setQuantityProducts] = useState(0);
 
   const getCart = async cid => {
-    return await axios.get(`http://localhost:8080/api/cart/${cid}`, reqConfig)
+    return await axios.get(`https://decorateme.onrender.com/api/cart/${cid}`, reqConfig)
   }
 
   const deleteOneFromCart = async (cid, pid) => {
-    return await axios.delete(`http://localhost:8080/api/cart/${cid}/product/${pid}/1`, reqConfig)
+    return await axios.delete(`https://decorateme.onrender.com/api/cart/${cid}/product/${pid}/1`, reqConfig)
   }
 
   const clearCart = async cid =>  {
     try {
-      await axios.delete(`http://localhost:8080/api/cart/${cid}`, reqConfig)
+      await axios.delete(`https://decorateme.onrender.com/api/cart/${cid}`, reqConfig)
       setCart([])
     } catch (error) {
       Swal.fire('Error', error.response.data.error)
@@ -60,35 +60,35 @@ const UserProvider = ({ children }) => {
   }
 
   const newProduct = async productData => {
-    return await axios.post('http://localhost:8080/api/products', productData, reqConfigWithFiles)
+    return await axios.post('https://decorateme.onrender.com/api/products', productData, reqConfigWithFiles)
   }
   
   const getUsers = async () => {
-    return await axios.get("http://localhost:8080/api/users", reqConfig)
+    return await axios.get("https://decorateme.onrender.com/api/users", reqConfig)
   }
 
   const updateUser = async (uid, data) => {
-    return await axios.put(`http://localhost:8080/api/users/${uid}`, data, reqConfig)
+    return await axios.put(`https://decorateme.onrender.com/api/users/${uid}`, data, reqConfig)
   }
 
   const deleteUser = async uid => {
-    return await axios.delete(`http://localhost:8080/api/users/${uid}`, reqConfig)
+    return await axios.delete(`https://decorateme.onrender.com/api/users/${uid}`, reqConfig)
   }
 
   const register = async formData => {
     return await axios
-      .post("http://localhost:8080/api/session/register", formData, reqConfigWithFiles)
+      .post("https://decorateme.onrender.com/api/session/register", formData, reqConfigWithFiles)
   }
 
   const login = async formData => {
     return await axios
-      .post("http://localhost:8080/api/session/login", formData, reqConfig)
+      .post("https://decorateme.onrender.com/api/session/login", formData, reqConfig)
   }
 
   const logout = async () => {
     return await axios
-      .get(
-        "http://localhost:8080/api/session/logout",
+      .delete(
+        "https://decorateme.onrender.com/api/session/logout",
         reqConfig
       )
       .then(() => {
@@ -101,12 +101,11 @@ const UserProvider = ({ children }) => {
   }
 
   const purchase = async cid => {
-    return await axios.post(`http://localhost:8080/api/cart/${cid}/purchase`, {}, reqConfig)
+    return await axios.post(`https://decorateme.onrender.com/api/cart/${cid}/purchase`, {}, reqConfig)
   }
 
   const signInGoogle = async () => {
-    // redirect('localhost:8080/api/session/google')
-    return axios.get('http://localhost:8080/api/session/current',
+    return axios.get('https://decorateme.onrender.com/api/session/current',
       reqConfig)
       .then(res => {
         setUser(res.data.response.user)
@@ -117,20 +116,20 @@ const UserProvider = ({ children }) => {
   const forgotPassword = email => {
     return axios
       .post(
-        'http://localhost:8080/api/session/forgot-password',
+        'https://decorateme.onrender.com/api/session/forgot-password',
         { email }, reqConfig,
       )
   }
 
   const ableToReset = token => {
-    return axios.get(`http://localhost:8080/api/session/reset-password/?token=${token}`,
+    return axios.get(`https://decorateme.onrender.com/api/session/reset-password/?token=${token}`,
       reqConfig
     )
   }
 
   const resetPassword = (password, confirmPassword) => {
     return axios.post(
-      'http://localhost:8080/api/session/reset-password',
+      'https://decorateme.onrender.com/api/session/reset-password',
       {
         password, confirmPassword
       },

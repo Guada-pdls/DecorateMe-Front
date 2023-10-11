@@ -15,7 +15,6 @@ const Checkout = () => {
 			e.preventDefault()
 			await purchase(cid)
 				.then(res => {
-					console.log(res)
 					Swal.fire({
 						title: 'Successful purchase',
 						html: `
@@ -37,7 +36,6 @@ const Checkout = () => {
 
 				})
 		} catch (error) {
-			console.log(error)
 			Swal.fire('Error', error.response.data.error, 'error')
 		}
 	}
