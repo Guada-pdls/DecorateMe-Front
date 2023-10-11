@@ -11,11 +11,10 @@ import {
 import { LockOutlined } from "@mui/icons-material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Swal from "sweetalert2";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { UserContext } from '../Context/UserContext'
 import GoogleWidget from "./GoogleWidget";
 import CustomButton from "./CustomButton";
-import UploadFileButton from "./UploadFileButton";
 
 const theme = createTheme();
 
@@ -23,12 +22,12 @@ const Register = () => {
 
   const context = useContext(UserContext)
 
-  const [file, setFile] = useState()
+  // const [file, setFile] = useState()
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    data.append('photo', file)
+    // data.append('photo', file)
 
     context.register(data)
       .then((res) => {

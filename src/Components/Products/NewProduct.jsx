@@ -1,21 +1,20 @@
 import Swal from "sweetalert2";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
-import UploadFileButton from "../UploadFileButton";
 
 const NewProduct = () => {
 
   const { user, newProduct } = useContext(UserContext)
 
-  const [file, setFile] = useState()
+  // const [file, setFile] = useState()
 
   const submitHandler = async (e) => {
     try {
       e.preventDefault();
 
       const formData = new FormData(e.currentTarget);
-      formData.append('thumbnail', file)
+      // formData.append('thumbnail', file)
 
       const res = await newProduct(formData)
 
@@ -78,7 +77,7 @@ const NewProduct = () => {
             </FormControl>
             <TextField name="price" required variant="standard" label="Price" />
             <TextField name="stock" variant="standard" label="Stock" />
-            <UploadFileButton setFile={setFile} name='thumbnail'/>
+            {/* <UploadFileButton setFile={setFile} name='thumbnail'/> */}
             <Button variant="contained" type="submit" sx={{
               padding: '.5rem 1rem',
               backgroundColor: 'wheat',
