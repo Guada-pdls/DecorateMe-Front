@@ -77,7 +77,7 @@ const UserProvider = ({ children }) => {
 
   const register = async formData => {
     return await axios
-      .post("https://decorateme.onrender.com/api/session/register", formData, reqConfigWithFiles)
+      .post("https://decorateme.onrender.com/api/session/register", formData, reqConfig)
   }
 
   const login = async formData => {

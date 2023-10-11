@@ -136,9 +136,9 @@ const Register = () => {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <UploadFileButton fullWidth name='photo' setFile={setFile} />
-              </Grid>
+              </Grid> */}
             </Grid>
             <CustomButton type='submit' text='Sign up' fullWidth/>
             <Grid container justifyContent="flex-end">
