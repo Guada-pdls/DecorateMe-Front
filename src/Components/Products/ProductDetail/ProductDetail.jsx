@@ -21,7 +21,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`https://decorateme.onrender.com/api/products/${pid}`, {
+      .get(`http://decorateme.onrender.com/api/products/${pid}`, {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
@@ -35,7 +35,7 @@ const ProductDetail = () => {
 
   const addToCart = async (cid, pid, units) => {
     try {
-      await axios.put(`https://decorateme.onrender.com/api/cart/${cid}/product/${pid}/${units}`, {}, {
+      await axios.put(`http://decorateme.onrender.com/api/cart/${cid}/product/${pid}/${units}`, {}, {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
@@ -74,7 +74,7 @@ const ProductDetail = () => {
               <ReturnButton />
               <Box>
                 <Box component='img'
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJiT-UHSm6w0Jperb8SitpfoAKeMUE3uynPg5YO-2Drw&s"
+                  src="http://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJiT-UHSm6w0Jperb8SitpfoAKeMUE3uynPg5YO-2Drw&s"
                   alt={product.name}
                   sx={{ width: "100%", maxHeight: 'auto' }}
                 />

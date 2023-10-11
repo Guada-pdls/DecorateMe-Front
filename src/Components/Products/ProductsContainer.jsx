@@ -25,7 +25,7 @@ const ProductsContainer = () => {
   useEffect(() => {
     // Request all products
     axios
-      .get("https://decorateme.onrender.com/api/products", {
+      .get("http://decorateme.onrender.com/api/products", {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
@@ -43,8 +43,8 @@ const ProductsContainer = () => {
     // Request with params
     const url =
       search === ""
-        ? `https://decorateme.onrender.com/api/products?page=${page}`
-        : `https://decorateme.onrender.com/api/products?page=${page}&name=${search}`;
+        ? `http://decorateme.onrender.com/api/products?page=${page}`
+        : `http://decorateme.onrender.com/api/products?page=${page}&name=${search}`;
     axios
       .get(url, {
         headers: {
@@ -111,9 +111,9 @@ const ProductsContainer = () => {
           }}
         />
       </Box>
-      <CustomButton text='Add new product' url='https://decorate-me-front.vercel.app/new-product'></CustomButton>
-      <CustomButton text='Go to chat' url='https://decorate-me-front.vercel.app/chat'></CustomButton>
-      <CustomButton text='Manage users' url='https://decorate-me-front.vercel.app/users'></CustomButton>
+      <CustomButton text='Add new product' url='http://decorate-me-front.vercel.app/new-product'></CustomButton>
+      <CustomButton text='Go to chat' url='http://decorate-me-front.vercel.app/chat'></CustomButton>
+      <CustomButton text='Manage users' url='http://decorate-me-front.vercel.app/users'></CustomButton>
     </>
   );
 };

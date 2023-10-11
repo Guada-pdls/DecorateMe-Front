@@ -28,7 +28,7 @@ const NewProduct = () => {
         }).then((res) => {
           if (res.isConfirmed) {
             e.target.reset();
-            window.location.href = "https://decorate-me-front.vercel.app/products";
+            window.location.href = "http://decorate-me-front.vercel.app/products";
           }
         });
       }
@@ -54,7 +54,7 @@ const NewProduct = () => {
               gap: '1rem'
             }}
             onSubmit={(e) => submitHandler(e)}
-            action="https://decorateme.onrender.com/api/products"
+            action="http://decorateme.onrender.com/api/products"
             method="POST"
           >
             <TextField name="name" required variant="standard" label="Name" />
