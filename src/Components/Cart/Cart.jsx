@@ -31,7 +31,7 @@ const Cart = () => {
         Swal.fire('Error', err.response.data.error, 'error')
       })
       .finally(() => setLoad(false))
-  }, [user]);
+  }, []);
 
   return (
     Object.keys(user).length ?
