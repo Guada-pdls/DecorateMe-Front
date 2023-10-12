@@ -52,6 +52,7 @@ const Login = () => {
         // window.location.href = "/";
       })
       .catch((err) => {
+        console.log(err)
         if (err.response.status === 400) {
           setMessage(err.response.data.error) 
         } else if (err.response.status === 401) {
