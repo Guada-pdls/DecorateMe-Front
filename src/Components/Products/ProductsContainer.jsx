@@ -25,7 +25,7 @@ const ProductsContainer = () => {
   useEffect(() => {
     // Request all products
     axios
-      .get("http://decorateme.onrender.com/api/products", {
+      .get("https://decorateme.onrender.com/api/products", {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
