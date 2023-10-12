@@ -49,11 +49,11 @@ const Login = () => {
           email: true,
           password: true,
         });
-        window.location.href = "/";
+        // window.location.href = "/";
       })
       .catch((err) => {
         if (err.response.status === 400) {
-          setMessage(err.response.data.error)
+          setMessage(err.response.data.error) 
         } else if (err.response.status === 401) {
           Swal.fire({
             title: 'Error',
