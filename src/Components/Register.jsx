@@ -133,6 +133,7 @@ const Register = () => {
                   name="password"
                   label="Password"
                   id="password"
+                  type="password"
                   autoComplete="new-password"
                 />
               </Grid>
