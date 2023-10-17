@@ -1,7 +1,5 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-// import GoogleIcon from "@mui/icons-material/Google";
-// import "./Login.css";
 import {
   Typography,
   Button,
@@ -27,8 +25,6 @@ const Login = () => {
     password: true,
   });
 
-  let [message, setMessage] = useState("");
-
   const changeHandler = (e) => {
     setFormData({
       ...formData,
@@ -52,9 +48,7 @@ const Login = () => {
         window.location.href = "/";
       })
       .catch((err) => {
-        if (err.response.status === 400) {
-          setMessage(err.response.data.error)
-        } else if (err.response.status === 401) {
+        if (err.response.status === 401) {
           Swal.fire({
             title: 'Error',
             text: err.response.data.error,
@@ -68,6 +62,8 @@ const Login = () => {
             icon: 'error',
             confirmButtonText: 'Register'
           }).then((res) => { if (res.isConfirmed) { window.location.href = '/register' } })
+        } else {
+          Swal.fire('Error', err.response.data.error, 'error')
         }
       });
   };
@@ -115,9 +111,6 @@ const Login = () => {
             autoComplete="current-password"
             onChange={changeHandler}
           />
-          <Typography sx={{ color: "black" }}>
-            {message}
-          </Typography>
           <Button
             type="submit"
             fullWidth

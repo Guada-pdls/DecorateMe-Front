@@ -5,7 +5,7 @@ import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@
 const ProductCard = ({ product }) => {
   return (
     <Link style={{ textDecoration: 'none' }} to={"/products/" + product._id}>
-      <Card sx={{ maxWidth: 350 }}>
+      <Card sx={{ width: 350 }}>
       <CardMedia
         component='img'
         sx={{ height: 140 }}

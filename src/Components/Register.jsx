@@ -42,7 +42,6 @@ const Register = () => {
         }
       })
       .catch((err) => {
-        console.log(err)
         if (err.response.status === 409) {
           Swal.fire({
             title: "Error",
@@ -50,12 +49,11 @@ const Register = () => {
             icon: "error",
             confirmButtonText: 'Sign in'
           }).then(res => res.isConfirmed && (window.location.href = '/login'));
-        } else if (err.response.status !== 201) {
+        } else {
           Swal.fire({
             title: "Error",
-            text: "Something went wrong, please try again",
+            text: err.response.data.error,
             icon: "error",
-            footer: `Error: ${err.response.data.error}`
           });
         }
       });
