@@ -1,19 +1,12 @@
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
 import { Link } from "react-router-dom";
 import { Badge } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
-// import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const CartWidget = () => {
 
-  const { user, quantityProducts, setQuantityProducts, getCart } = useContext(UserContext)
-
-  useEffect(() => {
-    Object.keys(user).length === 0 
-      ? setQuantityProducts(0)
-      : getCart()
-  }, [user]);
+  const { quantityProducts } = useContext(UserContext)
 
   return (
     <Link to="/cart">

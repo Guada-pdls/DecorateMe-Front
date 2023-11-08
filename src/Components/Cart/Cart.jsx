@@ -1,16 +1,17 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
-import axios from "axios";
 import CartCard from "./CartCard";
 import Load from "../Load";
 import "./Cart.css";
 import ReturnButton from "../ReturnButton";
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import CustomButton from "../CustomButton";
+import Swal from "sweetalert2";
 
 const Cart = () => {
 
-  const { user, cart } = useContext(UserContext)
+  const { user, cart, setCart, getCart, clearCart, setUser } = useContext(UserContext)
 
   const [load, setLoad] = useState(true);
   const [total, setTotal] = useState(0);
@@ -19,15 +20,16 @@ const Cart = () => {
 
   useEffect(() => {
     // Llamada a mongo para cart
-
-    axios
-      .get(`http://localhost:8080/api/cart/${user.cid}`)
+    getCart(user.cid)
       .then((res) => {
-        console.log(res)
-        let total = res.data.response[0] ? res.data.response[0].total : 0;
+        setCart(res.data.response.products)
+        let total = res.data.response.totalCart ?? 0;
         setTotal(total.toFixed(2));
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        if (err.response.status === 401) setUser({})
+        Swal.fire('Error', err.response.data.error, 'error')
+      })
       .finally(() => setLoad(false))
   }, []);
 
@@ -45,7 +47,7 @@ const Cart = () => {
                 borderColor: 'black',
                 backgroundColor: '#f2f2f2'
               }
-            }} variant="outlined">Clear</Button></Box>
+            }} variant="outlined" onClick={() => clearCart(user.cid)}>Clear</Button></Box>
           </Box>
           {load
             ? <Load />
@@ -62,7 +64,7 @@ const Cart = () => {
                     ? <Load />
                     : cart.length
                       ? cart.map((product) => (
-                        <CartCard key={product.id} product={product} />
+                        <CartCard key={product.pid} product={product} />
                       ))
                       : <Typography>No products</Typography>
                   }
@@ -74,14 +76,7 @@ const Cart = () => {
           <div className="cartContainer__bottom">
             <h2 className="totalProducts">Products: {cart.length}</h2>
             <h2 className="totalPrice">Total: {total} €</h2>
-            <Button variant="contained" sx={{
-              color: 'black',
-              backgroundColor: 'wheat',
-              ":hover": {
-                color: 'white',
-                backgroundColor: 'black'
-              }
-            }}>Pay</Button>
+            <CustomButton text='BUY' url={`/${user.cid}/purchase`} />
           </div>
         </div>
       </section>

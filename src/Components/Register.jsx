@@ -1,20 +1,21 @@
 import {
   Avatar,
-  Button,
   CssBaseline,
   TextField,
   Link,
   Grid,
   Box,
   Typography,
-  Container,
+  Container
 } from "@mui/material";
 import { LockOutlined } from "@mui/icons-material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Swal from "sweetalert2";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from '../Context/UserContext'
 import GoogleWidget from "./GoogleWidget";
+import CustomButton from "./CustomButton";
+import UploadFileButton from "./UploadFileButton";
 
 const theme = createTheme();
 
@@ -22,16 +23,14 @@ const Register = () => {
 
   const context = useContext(UserContext)
 
+  const [file, setFile] = useState()
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    context.register({
-      first_name: data.get("first_name"),
-      last_name: data.get("last_name"),
-      email: data.get("email"),
-      age: data.get("age"),
-      password: data.get("password"),
-    })
+    data.append('photo', file)
+
+    context.register(data)
       .then((res) => {
         if (res.status === 201) {
           Swal.fire({
@@ -41,10 +40,8 @@ const Register = () => {
             confirmButtonText: 'Sign in'
           }).then(res => res.isConfirmed && (window.location.href = '/login'))
         }
-        // window.location.href = "/";
       })
       .catch((err) => {
-        console.log(err)
         if (err.response.status === 409) {
           Swal.fire({
             title: "Error",
@@ -52,12 +49,11 @@ const Register = () => {
             icon: "error",
             confirmButtonText: 'Sign in'
           }).then(res => res.isConfirmed && (window.location.href = '/login'));
-        } else if (err.response.status !== 201) {
+        } else {
           Swal.fire({
             title: "Error",
-            text: "Something went wrong, please try again",
+            text: err.response.data.error,
             icon: "error",
-            footer: `Error: ${err.response.data.response}`
           });
         }
       });
@@ -111,7 +107,6 @@ const Register = () => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   id="age"
                   label="Age"
@@ -135,20 +130,16 @@ const Register = () => {
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
                   id="password"
+                  type="password"
                   autoComplete="new-password"
                 />
               </Grid>
+              <Grid item xs={12}>
+                <UploadFileButton fullWidth name='photo' setFile={setFile} />
+              </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
+            <CustomButton type='submit' text='Sign up' fullWidth/>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">

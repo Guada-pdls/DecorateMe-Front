@@ -6,7 +6,9 @@ import "./UserWidget.css";
 const UserWidget = () => {
 
   return (
-    <Link to='/login' className="userWidget">
+    <Link to='/login' className="userWidget" style={{
+      marginTop: '4px',
+    }}>
       <AccountCircleIcon sx={{ color: "white", fontSize: 35 }} />
     </Link>
   );

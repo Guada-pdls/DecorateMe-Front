@@ -21,7 +21,13 @@ const ProductDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/products/${pid}`)
+      .get(`http://localhost:8080/api/products/${pid}`, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      })
       .then(res => setProduct(res.data.response.product))
       .catch(err => console.log(err))
       .finally(setLoad(false));
@@ -29,9 +35,13 @@ const ProductDetail = () => {
 
   const addToCart = async (cid, pid, units) => {
     try {
-      await axios.put(
-        `http://localhost:8080/api/session/current`
-        // `http://localhost:8080/api/cart/${cid}/product/${pid}/${units}`
+      await axios.put(`http://localhost:8080/api/cart/${cid}/product/${pid}/${units}`, {}, {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true
+        }
       );
     } catch (error) {
       console.log(error)
@@ -41,7 +51,6 @@ const ProductDetail = () => {
         icon: 'error',
         showCancelButton: true,
         cancelButtonText: 'Return home',
-        allowOutsideClick: false,
         confirmButtonText: 'Sign in',
         allowEscapeKey: false,
       }).then(res => res.isConfirmed ? location.href = '/login' : location.href = '/')

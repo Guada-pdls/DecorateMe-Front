@@ -5,12 +5,16 @@ import Home from "./Components/Home/Home";
 import ProductsContainer from "./Components/Products/ProductsContainer";
 import ProductDetail from "./Components/Products/ProductDetail/ProductDetail";
 import Cart from "./Components/Cart/Cart";
-import NewProduct from "./Components/NewProduct/NewProduct";
+import NewProduct from "./Components/Products/NewProduct";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import ResetPassword from "./Components/ResetPassword";
 import ForgotPassword from "./Components/ForgotPassword";
-// import Chat from './Components/Chat/Chat'
+import Checkout from "./Components/Checkout";
+import Chat from './Components/Chat/Chat'
+import GoogleLogin from "./Components/GoogleLogin";
+import Users from "./Components/Users/Users";
+
 
 function App() {
   return (
@@ -22,13 +26,16 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<ProductsContainer />} />
             <Route path="/products/:pid" element={<ProductDetail />} />
-            <Route path="/new_product" element={<NewProduct />} />
+            <Route path="/new-product" element={<NewProduct />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/:cid/purchase" element={<Checkout />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />}></Route>
             <Route path="/reset-password" element={<ResetPassword/>}></Route>
             <Route path="/forgot-password" element={<ForgotPassword/>}></Route>
-            {/* <Route path='/chat' element={<Chat/>}/> */}
+            <Route path="/login/google" element={<GoogleLogin/>}></Route>
+            <Route path="/users" element={<Users/>}></Route>
+            <Route path="/chat" element={<Chat/>}/>
           </Routes>
         </BrowserRouter>
       </UserProvider>

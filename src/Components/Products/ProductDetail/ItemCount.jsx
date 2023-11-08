@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IconButton, Typography, Box, Button } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
 
-const ItemCount = ({ product, addToCart, user, able }) => {
+const ItemCount = ({ product, addToCart, user }) => {
   const [units, setUnits] = useState(1);
   const [addBtn, setAddBtn] = useState("Add to Cart");
 
@@ -20,10 +20,6 @@ const ItemCount = ({ product, addToCart, user, able }) => {
       setAddBtn("Add to Cart");
     }
   };
-
-  useEffect(() => {
-    console.log(able)
-  })
 
   const handleClick = () => {
     addToCart(user.cid, product._id, units);

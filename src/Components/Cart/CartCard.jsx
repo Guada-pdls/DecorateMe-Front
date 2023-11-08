@@ -1,19 +1,28 @@
 /* eslint-disable react/prop-types */
-import axios from "axios";
 import ClearIcon from "@mui/icons-material/Clear";
 import "./CartCard.css";
+import { useContext } from "react";
+import { UserContext } from "../../Context/UserContext";
+import Swal from "sweetalert2";
 
 const CartCard = ({ product }) => {
-  const deleteOneFromCart = async () => {
+  const { user, setCart, cart, deleteOneFromCart } = useContext(UserContext)
+
+  const clickHandler = async () => {
     try {
-      await axios.delete(
-        `http://localhost:8080/api/cart/648a0049c5392c5c08014dc6/product/${product.id}/1`
-      );
+      await deleteOneFromCart(user.cid, product.pid)
+      const updatedCart = cart.filter(prod => prod.pid !== product.pid)
+      if (product.units === 1) {
+        setCart(updatedCart)
+      } else {
+        product = {...product, units: product.units - 1}
+        setCart([...updatedCart, product])
+      }
     } catch (error) {
-      console.log(error);
+      Swal.fire('Error', error.response.data.error, 'error')
     }
   };
-
+  
   return (
     <article>
       <div className="cartItem">
@@ -21,20 +30,20 @@ const CartCard = ({ product }) => {
           <img
             className="cartItem__product--img"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJiT-UHSm6w0Jperb8SitpfoAKeMUE3uynPg5YO-2Drw&s"
-            alt="product image"
+            alt={product.name}
           />
           <div className="cartItem__product--info">
-            <h2 className="productTitle">{product.product.name}</h2>
-            <h4 className="productCategory">{product.product.category}</h4>
+            <h2 className="productTitle">{product.name}</h2>
+            <h4 className="productCategory">{product.category}</h4>
           </div>
         </div>
         <h2 className="cartItem__units">{product.units}</h2>
         <div className="cartItem__price cartItem__section">
           <h2 className="cartItem__price--price">
-            {(product.product.price * product.units).toFixed(2)} €
+            {(product.price * product.units).toFixed(2)} €
           </h2>
           <button
-            onClick={() => deleteOneFromCart(product.pid)}
+            onClick={() => clickHandler(product.pid)}
             className="deleteItem"
           >
             <i className="fa-regular fa-xmark"></i>

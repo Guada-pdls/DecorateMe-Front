@@ -1,12 +1,20 @@
 /* eslint-disable react/prop-types */
-import './Message.css'
+import { useContext } from 'react'
+// import './Message.css'
+import { UserContext } from '../../Context/UserContext'
+import { Box, Typography } from '@mui/material'
 
 const Message = ({msg}) => {
+  
+  const { user } = useContext(UserContext)
+
   return (
-    <div className='message'>
-        <h6>- {msg.userName}</h6>
-        <p>{msg.message}</p>
-    </div>
+    <Box sx={{
+      marginY: '8px'
+    }} className='message'>
+        <Typography variant='title'>- {user.full_name === msg.from ? 'Me' : msg.from}</Typography>
+        <Typography>{msg.message}</Typography>
+    </Box>
   )
 }
 
