@@ -6,6 +6,7 @@ import { Search } from "@mui/icons-material";
 import ProductCard from "./ProductCard";
 import Load from "../Load";
 import Swal from "sweetalert2";
+import CustomButton from "../CustomButton";
 
 const ProductsContainer = () => {
   const [products, setProducts] = useState([]);
@@ -110,6 +111,9 @@ const ProductsContainer = () => {
           }}
         />
       </Box>
+      <CustomButton text='Go to chat' url='/chat' />
+      <CustomButton text='Add product' url='/new-product' />
+      <CustomButton text='View users' url='/users' />
     </>
   );
 };
