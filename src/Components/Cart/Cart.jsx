@@ -2,24 +2,22 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
 import CartCard from "./CartCard";
 import Load from "../Load";
-import "./Cart.css";
 import ReturnButton from "../ReturnButton";
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../CustomButton";
 import Swal from "sweetalert2";
+// import "./Cart.css";
 
 const Cart = () => {
 
-  const { user, cart, setCart, getCart, clearCart, setUser } = useContext(UserContext)
+  const { user, cart, setCart, getCart, clearCart, setUser, setTotal, total } = useContext(UserContext)
 
   const [load, setLoad] = useState(true);
-  const [total, setTotal] = useState(0);
 
   const navigation = useNavigate();
 
   useEffect(() => {
-    // Llamada a mongo para cart
     getCart(user.cid)
       .then((res) => {
         setCart(res.data.response.products)
@@ -27,11 +25,12 @@ const Cart = () => {
         setTotal(total.toFixed(2));
       })
       .catch((err) => {
+        console.log(err)
         if (err.response.status === 401) setUser({})
-        Swal.fire('Error', err.response.data.error, 'error')
+        Swal.fire('Error', err, 'error')
       })
       .finally(() => setLoad(false))
-  }, [cart]);
+  }, [total]);
 
   return (
     Object.keys(user).length ?

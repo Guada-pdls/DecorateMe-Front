@@ -41,6 +41,7 @@ const UserProvider = ({ children }) => {
 
   const [cart, setCart] = useState([])
   const [quantityProducts, setQuantityProducts] = useState(0);
+  const [total, setTotal] = useState(0);
 
   const getCart = async cid => {
     return await axios.get(`http://localhost:8080/api/cart/${cid}`, reqConfig)
@@ -138,7 +139,7 @@ const UserProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, cart, setCart, getCart, quantityProducts, setQuantityProducts, purchase, register, login, logout, forgotPassword, ableToReset, resetPassword, signInGoogle, socket, newProduct, deleteOneFromCart, clearCart, getUsers, updateUser, deleteUser }}>
+    <UserContext.Provider value={{ user, setUser, cart, setCart, getCart, quantityProducts, setQuantityProducts, purchase, register, login, logout, forgotPassword, ableToReset, resetPassword, signInGoogle, socket, newProduct, deleteOneFromCart, clearCart, getUsers, updateUser, deleteUser, total, setTotal }}>
       {children}
     </UserContext.Provider>
   )

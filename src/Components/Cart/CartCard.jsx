@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import ClearIcon from "@mui/icons-material/Clear";
-import "./CartCard.css";
 import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
 import Swal from "sweetalert2";
+// import "./CartCard.css";
 
 const CartCard = ({ product }) => {
-  const { user, setCart, cart, deleteOneFromCart } = useContext(UserContext)
+  const { user, setCart, cart, deleteOneFromCart, setTotal } = useContext(UserContext)
 
   const clickHandler = async () => {
     try {
@@ -18,7 +18,9 @@ const CartCard = ({ product }) => {
         product = {...product, units: product.units - 1}
         setCart([...updatedCart, product])
       }
+      setTotal(0)
     } catch (error) {
+      console.log(error)
       Swal.fire('Error', error.response.data.error, 'error')
     }
   };
